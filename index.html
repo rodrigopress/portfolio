@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rodrigo Press | Portfólio UGC Creator</title>
 <meta name="description" content="Portfólio UGC de Rodrigo Press. Direto ao ponto que vende: vídeos objetivos, com visão masculina e estratégia de venda.">
+<link rel="preload" as="image" href="capa.jpg?v=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Tenor+Sans&display=swap" rel="stylesheet">
@@ -171,7 +172,7 @@ p{margin:0 0 1rem}
 .sobre-foto{position:relative;align-self:start}
 .sobre-foto::before{content:"";position:absolute;inset:0;transform:translate(-14px,-14px);background:#cdd0c2;border-radius:8px;z-index:0}
 .sobre-foto .midia{position:relative;z-index:1;aspect-ratio:4/5;border-radius:8px;overflow:hidden}
-.sobre-foto img{object-fit:cover;object-position:50% 80%;filter:sepia(.12) saturate(1.05)}
+.sobre-foto img{object-fit:cover;object-position:50% 50%}
 .sobre-etiqueta{margin:0 0 1.2rem;font-size:.72rem;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:#7a8450}
 .sobre-titulo{font-size:clamp(2.2rem,4vw,3.2rem);line-height:1.1;color:#22272a;margin:0 0 1.1rem}
 .sobre-titulo em{font-style:italic;color:#7a8450}
@@ -671,7 +672,6 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
   .revela{opacity:1;transform:none}
   .faixa-trilho{flex-wrap:wrap;width:auto}
 }
-.contato-escuro .contato-avatar--vazio{display:grid;place-items:center;font-family:var(--titulo);font-size:.95rem;letter-spacing:.12em;color:#cdd0c2}
 </style>
 </head>
 <body>
@@ -728,11 +728,10 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
       <div class="capa-numeros" id="capa-numeros"><!-- preenchido pelo script (array numerosCapa) --></div>
     </div>
     <div class="capa-foto revela">
-      <!-- FOTO DA CAPA (espaço reservado, mesma proporção 4:5).
-           Quando chegar a foto do Rodrigo: suba capa.jpg na mesma pasta do index.html e troque o div abaixo por
-           <div class="midia midia--4x5"><img src="capa.jpg" alt="Rodrigo Press" width="900" height="1125" fetchpriority="high"></div> -->
-      <div class="midia midia--4x5" role="img" aria-label="Espaço reservado para a foto do Rodrigo Press">
-        <span class="legenda">Foto do Rodrigo 4:5</span>
+      <!-- FOTO DA CAPA: o arquivo capa.jpg fica na mesma pasta do index.html no GitHub (já recortado em 4:5).
+           Para trocar, suba outra foto 4:5 com o mesmo nome (capa.jpg). -->
+      <div class="midia midia--4x5">
+        <img src="capa.jpg?v=1" alt="Rodrigo Press sorrindo, de camisa polo cinza, em uma varanda com prédios e céu azul" data-t-alt="fotoCapaAlt" width="1000" height="1250" fetchpriority="high">
       </div>
     </div>
   </div>
@@ -748,9 +747,10 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
     <!-- BLOCO 1: apresentação (foto + texto) -->
     <div class="sobre-grade">
       <div class="sobre-foto revela">
-        <!-- FOTO DO SOBRE (espaço reservado): troque o div por <div class="midia"><img src="sobre.jpg" alt="Rodrigo Press" width="960" height="1280" loading="lazy"></div> -->
-        <div class="midia" role="img" aria-label="Espaço reservado para foto do Rodrigo Press">
-          <span class="legenda">Foto do sobre 4:5</span>
+        <!-- FOTO DO SOBRE: o arquivo sobre.jpg fica na mesma pasta do index.html no GitHub (já recortado em 4:5).
+             Para trocar, suba outra foto com o mesmo nome (sobre.jpg). -->
+        <div class="midia">
+          <img src="sobre.jpg?v=1" alt="Rodrigo Press de camiseta preta em uma varanda com vista para a cidade" data-t-alt="fotoSobreAlt" width="960" height="1200" loading="lazy">
         </div>
       </div>
       <div class="sobre-texto revela">
@@ -807,7 +807,7 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
     <div class="fotos-cabeca revela">
       <p class="cat-etiqueta" data-t="fotosEtiqueta">Fotografia</p>
       <div class="depo-linha">
-        <h2 id="titulo-fotos" class="cat-titulo"><span data-t="fotosTitulo1">Fotos com</span> <em data-t="fotosTitulo2">bom gosto.</em></h2>
+        <h2 id="titulo-fotos" class="cat-titulo"><span data-t="fotosTitulo1">Fotos de</span> <em data-t="fotosTitulo2">produto.</em></h2>
         <p class="depo-canto" data-t="fotosCanto">Fotos lifestyle e de produto, com luz natural e composição pensada. Clique para ver de perto.</p>
       </div>
     </div>
@@ -897,8 +897,7 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
   <div class="wrap">
     <div class="contato-grade">
       <div class="contato-intro revela">
-        <!-- AVATAR: quando tiver a foto, troque por <img class="contato-avatar" src="contato-avatar.jpg" alt="Rodrigo Press" width="72" height="72"> -->
-        <span class="contato-avatar contato-avatar--vazio" aria-hidden="true">RP</span>
+        <img class="contato-avatar" src="contato-avatar.jpg?v=1" alt="Rodrigo Press" width="72" height="72">
         <p class="cat-etiqueta" data-t="contEtiqueta">Contato</p>
         <h2 id="titulo-contato" class="contato-titulo"><span data-t="contTitulo1">Vamos criar</span> <em data-t="contTitulo2">juntos?</em></h2>
         <p class="contato-frase" data-t="contFrase">Me conta da sua marca e do que você precisa.</p>
@@ -968,10 +967,10 @@ const textos = {
     capaFrase: "Direto ao ponto que vende.",
     capaSub: "Eu transformo o diferencial da sua marca em motivo de compra: vídeos objetivos, com visão masculina e estratégia de venda.",
     btnFalar: "Falar comigo", btnVer: "Ver os trabalhos",
-    fotoCapaAlt: "Rodrigo Press",
+    fotoCapaAlt: "Rodrigo Press sorrindo, de camisa polo cinza, em uma varanda com prédios e céu azul",
     faixaAria: "Marcas com quem já trabalhei",
     sobreTitulo: "Sobre mim", sobreRotulo: "Sobre mim",
-    fotoSobreAlt: "Rodrigo Press",
+    fotoSobreAlt: "Rodrigo Press de camiseta preta em uma varanda com vista para a cidade",
     fotoSobreAria: "Espaço reservado para foto do Rodrigo", fotoSobreLegenda: "Foto do sobre 4:5",
     sobreOla: "Olá, eu sou", sobreOlaDestaque: "o Rodrigo.",
     sobreP1: "Sou <strong>criador de conteúdo UGC</strong>, de Porto Alegre. <strong>Esporte, viagem e disciplina</strong> fazem parte da minha rotina, e é dela que vem o meu jeito de criar: objetivo, consistente e sem enrolação.",
@@ -994,7 +993,7 @@ const textos = {
     proc2Nome: "Etapa 02", proc2Frase: "Título da etapa.", proc2Desc: "Descrição da etapa, a personalizar.",
     proc3Nome: "Etapa 03", proc3Frase: "Título da etapa.", proc3Desc: "Descrição da etapa, a personalizar.",
     proc4Nome: "Etapa 04", proc4Frase: "Título da etapa.", proc4Desc: "Descrição da etapa, a personalizar.",
-    fotosEtiqueta: "Fotografia", fotosTitulo1: "Fotos de", fotosTitulo2: "produto.", fotosCanto: "Texto de apoio das fotos, a personalizar.", fotosBarra: "Fotos", lbFechar: "Fechar", videoAmpliado: "Vídeo ampliado", lbAnterior: "Foto anterior", lbProxima: "Próxima foto", fotoAmpliar: "Ver de perto", fotoEmBreve: "Foto em breve",
+    fotosEtiqueta: "Fotografia", fotosTitulo1: "Fotos de", fotosTitulo2: "produto.", fotosCanto: "Clique para ver de perto.", fotosBarra: "Fotos", lbFechar: "Fechar", videoAmpliado: "Vídeo ampliado", lbAnterior: "Foto anterior", lbProxima: "Próxima foto", fotoAmpliar: "Ver de perto", fotoEmBreve: "Foto em breve",
     depoEtiqueta: "Depoimentos", depoTitulo1: "O que dizem", depoTitulo2: "as marcas.", depoVerificada: "Avaliação verificada", depoCanto: "Os depoimentos reais entram aqui.",
     depoSelo: "",
     contTitulo: "Bora criar juntos", contRotulo: "Contato",
@@ -1024,10 +1023,10 @@ const textos = {
     capaFrase: "Straight to the point that sells.",
     capaSub: "I turn what makes your brand different into a reason to buy: objective videos, with a male perspective and a sales strategy.",
     btnFalar: "Get in touch", btnVer: "See my work",
-    fotoCapaAlt: "Rodrigo Press",
+    fotoCapaAlt: "Rodrigo Press smiling in a grey polo shirt on a balcony with buildings and blue sky",
     faixaAria: "Brands I have worked with",
     sobreTitulo: "About me", sobreRotulo: "About me",
-    fotoSobreAlt: "Rodrigo Press",
+    fotoSobreAlt: "Rodrigo Press in a black t-shirt on a balcony overlooking the city",
     fotoSobreAria: "Reserved space for a photo of Rodrigo", fotoSobreLegenda: "About photo 4:5",
     sobreOla: "Hi, I'm", sobreOlaDestaque: "Rodrigo.",
     sobreP1: "I'm a <strong>UGC content creator</strong> from Porto Alegre, Brazil. <strong>Sports, travel and discipline</strong> are part of my routine, and that is where my way of creating comes from: objective, consistent and straight to the point.",
@@ -1050,7 +1049,7 @@ const textos = {
     proc2Nome: "Step 02", proc2Frase: "Step title.", proc2Desc: "Step description, to be customized.",
     proc3Nome: "Step 03", proc3Frase: "Step title.", proc3Desc: "Step description, to be customized.",
     proc4Nome: "Step 04", proc4Frase: "Step title.", proc4Desc: "Step description, to be customized.",
-    fotosEtiqueta: "Photography", fotosTitulo1: "Product", fotosTitulo2: "photos.", fotosCanto: "Photos intro, to be customized.", fotosBarra: "Photos", lbFechar: "Close", videoAmpliado: "Enlarged video", lbAnterior: "Previous photo", lbProxima: "Next photo", fotoAmpliar: "See up close", fotoEmBreve: "Photo coming soon",
+    fotosEtiqueta: "Photography", fotosTitulo1: "Product", fotosTitulo2: "photos.", fotosCanto: "Click to see up close.", fotosBarra: "Photos", lbFechar: "Close", videoAmpliado: "Enlarged video", lbAnterior: "Previous photo", lbProxima: "Next photo", fotoAmpliar: "See up close", fotoEmBreve: "Photo coming soon",
     depoEtiqueta: "Testimonials", depoTitulo1: "What brands", depoTitulo2: "are saying.", depoVerificada: "Verified review", depoCanto: "Real testimonials go here.",
     depoSelo: "",
     contTitulo: "Let's create together", contRotulo: "Contact",
@@ -1132,9 +1131,13 @@ const metricas = [
 
 /* Fotos da galeria (pasta fotos/). arquivo "" mostra um espaço reservado. */
 const fotos = [
-  { arquivo: "", nicho: { pt: "Foto 01", en: "Photo 01" } },
-  { arquivo: "", nicho: { pt: "Foto 02", en: "Photo 02" } },
-  { arquivo: "", nicho: { pt: "Foto 03", en: "Photo 03" } }
+  { arquivo: "01-spotter-app.jpg",        nicho: { pt: "Tech", en: "Tech" } },
+  { arquivo: "02-luigi-limoncello.jpg",   nicho: { pt: "Bebidas", en: "Drinks" } },
+  { arquivo: "03-look-completo.jpg",      nicho: { pt: "Moda", en: "Fashion" } },
+  { arquivo: "04-produto-caixa.jpg",      nicho: { pt: "Produto", en: "Product" } },
+  { arquivo: "05-suplemento-treino.jpg",  nicho: { pt: "Fitness", en: "Fitness" } },
+  { arquivo: "06-detalhe-polo.jpg",       nicho: { pt: "Moda", en: "Fashion" } },
+  { arquivo: "07-retrato.jpg",            nicho: { pt: "Retrato", en: "Portrait" } }
 ];
 
 /* Depoimentos do carrossel: placeholders. verificado: true mostra as estrelas e o selo "Avaliação verificada". */

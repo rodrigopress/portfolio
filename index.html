@@ -1720,7 +1720,7 @@ const EMAIL_FORMULARIO = "contatopressrodrigo@gmail.com";
     envio.action = "https://formsubmit.co/" + EMAIL_FORMULARIO;
     envio.hidden = true;
     const campos = {
-      "Nome": d.nome, "Marca / empresa": d.marca || "-", "E-mail": d.email, "Mensagem": d.mensagem,
+      "Nome": d.nome, "Empresa": d.marca || "-", "E-mail": d.email, "Mensagem": d.mensagem,
       "_replyto": d.email,
       "_subject": "Novo contato pelo portfólio: " + d.nome + (d.marca ? " (" + d.marca + ")" : ""),
       "_template": "table", "_captcha": "false",

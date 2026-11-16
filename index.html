@@ -1692,9 +1692,8 @@ function ligarFormulario(form, ok, aoEnviar) {
    As mensagens chegam no e-mail abaixo pelo serviço gratuito FormSubmit (formsubmit.co).
    Se o envio falhar, o site abre o WhatsApp com a mensagem pronta, para o contato não se perder.
    Vazio = sempre abre o WhatsApp. */
-/* Por enquanto vazio: o formulário abre o WhatsApp do Rodrigo com a mensagem pronta.
-   Para receber por e-mail, coloque aqui "contatopressrodrigo@gmail.com" e confirme o e-mail de ativação do FormSubmit. */
-const EMAIL_FORMULARIO = "";
+/* Na primeira mensagem, o FormSubmit manda um e-mail de ativação para este endereço: é só clicar no link uma vez. */
+const EMAIL_FORMULARIO = "contatopressrodrigo@gmail.com";
 (function () {
   const form = $("#form-contato"), ok = $("#ok-contato"), erro = $("#erro-contato");
   const whatsCom = (d) => {

@@ -533,6 +533,9 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
 .cat-links a:hover{color:#7a8450}
 .categoria{border-top:1px solid #d6d6ce;padding-top:clamp(2rem,4vw,2.8rem)}
 .categoria+.categoria{margin-top:clamp(4.5rem,10vw,8rem)}
+/* categoria ainda sem vídeos: só título e descrição, sem a grade */
+.categoria--sem-videos .cat-topo{margin-bottom:0}
+.categoria--sem-videos+.categoria{margin-top:clamp(2rem,4vw,2.8rem)}
 .cat-num{margin:0 0 1rem;font-size:.68rem;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:#7a8450}
 .cat-topo{display:flex;align-items:baseline;justify-content:space-between;gap:2rem;margin-bottom:clamp(1.6rem,3vw,2.4rem)}
 .cat-topo h3{font-size:clamp(1.9rem,4vw,3rem);color:#22272a}
@@ -793,8 +796,8 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
   <div class="wrap">
     <div class="cat-abertura revela">
       <p class="cat-etiqueta" data-t="catEtiqueta">Categorias</p>
-      <h2 id="titulo-trabalhos" class="cat-titulo"><span data-t="catTitulo">Conteúdo para cada tipo de</span> <em data-t="catTituloDestaque">marca.</em></h2>
-      <p class="cat-apoio" data-t="catApoio">Escolha o seu nicho e veja como eu levo produtos para a vida real.</p>
+      <h2 id="titulo-trabalhos" class="cat-titulo"><span data-t="catTitulo">Um olhar masculino para</span> <em data-t="catTituloDestaque">cada nicho.</em></h2>
+      <p class="cat-apoio" data-t="catApoio">Escolha o seu nicho e veja como eu transformo o diferencial do produto em decisão de compra.</p>
       <nav class="cat-links" id="cat-links" aria-label="Categorias" data-t-aria="catLinksAria"><!-- preenchido pelo script (array categorias) --></nav>
     </div>
     <div id="categorias"><!-- preenchido pelo script (array categorias) --></div>
@@ -1005,8 +1008,8 @@ const textos = {
     okTexto: "Recebi a sua mensagem e respondo em breve. Se preferir, me chama no WhatsApp.",
     fechar: "Fechar", kitRotulo: "Mídia kit", kitTitulo: "Quer meu mídia kit completo?",
     kitTexto: "Deixa seu nome e e-mail que eu te envio.",
-    catEtiqueta: "Categorias", catTitulo: "Trabalhos por", catTituloDestaque: "categoria.",
-    catApoio: "Texto de apoio das categorias, a personalizar.", catLinksAria: "Categorias",
+    catEtiqueta: "Categorias", catTitulo: "Um olhar masculino para", catTituloDestaque: "cada nicho.",
+    catApoio: "Escolha o seu nicho e veja como eu transformo o diferencial do produto em decisão de compra.", catLinksAria: "Categorias",
     catNum: "Conteúdo UGC", videoEmBreve: "Vídeo em breve", reproduzir: "Reproduzir vídeo", pausar: "Pausar vídeo",
     contEtiqueta: "Contato", contTitulo1: "Vamos criar", contTitulo2: "juntos?", contApoio: "",
     contAgenda: "", contWhats: "Chamar no WhatsApp", lblMarca: "Marca / empresa", rodapeCargo: "UGC creator",
@@ -1061,8 +1064,8 @@ const textos = {
     okTexto: "I got your message and will reply soon. If you prefer, reach me on WhatsApp.",
     fechar: "Close", kitRotulo: "Media kit", kitTitulo: "Want my full media kit?",
     kitTexto: "Leave your name and email and I'll send it to you.",
-    catEtiqueta: "Categories", catTitulo: "Work by", catTituloDestaque: "category.",
-    catApoio: "Categories intro, to be customized.", catLinksAria: "Categories",
+    catEtiqueta: "Categories", catTitulo: "A male perspective for", catTituloDestaque: "every niche.",
+    catApoio: "Choose your niche and see how I turn what makes your product different into a purchase decision.", catLinksAria: "Categories",
     catNum: "UGC content", videoEmBreve: "Video coming soon", reproduzir: "Play video", pausar: "Pause video",
     contEtiqueta: "Contact", contTitulo1: "Shall we create", contTitulo2: "together?", contApoio: "",
     contAgenda: "", contWhats: "Message me on WhatsApp", lblMarca: "Brand / company", rodapeCargo: "UGC creator",
@@ -1106,14 +1109,14 @@ const BARRA_CATEGORIAS = true;
 const CAPAS_PROPRIAS = [];
 const VIDEOS_POR_CATEGORIA = 4; /* quantos vídeos aparecem em cada categoria */
 const categorias = [
-  { chave: "beleza", nome: { pt: "Beleza", en: "Beauty" },
-    descricao: { pt: "Descrição da categoria, a personalizar.", en: "Category description, to be customized." }, videos: [] },
-  { chave: "moda", nome: { pt: "Moda", en: "Fashion" },
-    descricao: { pt: "Descrição da categoria, a personalizar.", en: "Category description, to be customized." }, videos: [] },
-  { chave: "fitness", nome: { pt: "Fitness", en: "Fitness" },
-    descricao: { pt: "Descrição da categoria, a personalizar.", en: "Category description, to be customized." }, videos: [] },
-  { chave: "tech", nome: { pt: "Tech", en: "Tech" },
-    descricao: { pt: "Descrição da categoria, a personalizar.", en: "Category description, to be customized." }, videos: [] }
+  { chave: "moda", nome: { pt: "Moda masculina", en: "Menswear" },
+    descricao: { pt: "Estilo que veste bem e vende melhor.", en: "Style that looks sharp and sells better." }, videos: [] },
+  { chave: "negocios", nome: { pt: "Finanças, apps e negócios", en: "Finance, Apps & Business" },
+    descricao: { pt: "Produtos complexos explicados com clareza e confiança.", en: "Complex products explained with clarity and trust." }, videos: [] },
+  { chave: "fitness", nome: { pt: "Saúde e fitness", en: "Health & Fitness" },
+    descricao: { pt: "Treino, suplementação e disciplina de quem vive a rotina.", en: "Training, supplements and the discipline of someone who lives it." }, videos: [] },
+  { chave: "lifestyle", nome: { pt: "Lifestyle e gastronomia", en: "Lifestyle & Food" },
+    descricao: { pt: "Experiências, viagens e sabores com a sua marca em cena.", en: "Experiences, travel and flavors with your brand on scene." }, videos: [] }
 ];
 
 /* Serviços: placeholders, a personalizar. destaque: true mostra o selo "Mais pedido". */
@@ -1294,7 +1297,7 @@ function renderizaCategorias(classeRevela) {
   $("#categorias").innerHTML = categorias.map((c, ci) => {
     const nome = tr(c.nome);
     const lista = c.videos.slice(0, VIDEOS_POR_CATEGORIA);
-    while (lista.length < VIDEOS_POR_CATEGORIA) lista.push(null);
+    /* sem cards vazios: só aparecem os vídeos que já têm link */
     const cards = lista.map((v, i) => {
       const num = String(i + 1).padStart(2, "0");
       if (!v) return `<li><div class="vplayer sem-video" data-aviso="${esc(T("videoEmBreve"))}"></div></li>`;
@@ -1314,12 +1317,12 @@ function renderizaCategorias(classeRevela) {
         </li>`;
     }).join("");
     return `
-      <article class="categoria ${classeRevela}" id="cat-${c.chave}" aria-labelledby="cat-${c.chave}-titulo">
+      <article class="categoria${lista.length ? "" : " categoria--sem-videos"} ${classeRevela}" id="cat-${c.chave}" aria-labelledby="cat-${c.chave}-titulo">
         <div class="cat-topo">
           <h3 id="cat-${c.chave}-titulo">${esc(nome)}</h3>
           <p class="cat-desc">${esc(tr(c.descricao))}</p>
         </div>
-        <ul class="cat-grade">${cards}</ul>
+        ${lista.length ? `<ul class="cat-grade">${cards}</ul>` : ""}
       </article>`;
   }).join("");
   document.querySelectorAll("#categorias video").forEach(ligaVideo);

@@ -913,7 +913,7 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
         </div>
       </div>
       <div class="revela contato-card">
-        <!-- FORMULÁRIO: as mensagens vão para o e-mail em EMAIL_FORMULARIO (no script), pelo FormSubmit. Se falhar, abre o WhatsApp. -->
+        <!-- FORMULÁRIO: as mensagens vão para o e-mail em EMAIL_FORMULARIO (no script), pelo FormSubmit, e também entram na tabela marcas do painel como Lead. -->
         <form class="form contato-form" id="form-contato" novalidate>
           <div class="campo"><label class="so-leitor" for="c-nome" data-t="lblNome">Nome</label><input id="c-nome" name="nome" type="text" autocomplete="name" required placeholder="Seu nome" data-t-ph="phNome"></div>
           <div class="campo"><label class="so-leitor" for="c-email" data-t="lblEmail">E-mail</label><input id="c-email" name="email" type="email" autocomplete="email" required placeholder="Seu e-mail" data-t-ph="phEmail"></div>
@@ -1335,7 +1335,7 @@ function renderizaCategorias(classeRevela) {
           <div class="vplayer${yt ? " vplayer--yt" : ""}" data-aviso="${esc(T("videoEmBreve"))}"${yt ? ` data-yt="${esc(yt)}"` : ""}>
             ${midia}
             <span class="vpilula">${esc(v.marca)}</span>
-            <div class="vrodape"><strong>${esc(v.marca)}</strong><span>${esc(nome)}</span></div>
+            <div class="vrodape"><strong>${esc(v.marca)}</strong><span>${esc(v.destaque || nome)}</span></div>
             <button class="vplay" type="button" data-rotulo="${esc(v.marca)}, ${esc(nome)}" aria-label="${esc(T("reproduzir"))}: ${esc(v.marca)}, ${esc(nome)}"><span class="circulo" aria-hidden="true"></span></button>
           </div>
         </li>`;
@@ -1708,7 +1708,7 @@ const EMAIL_FORMULARIO = "contatopressrodrigo@gmail.com";
     const vaiProContato = () => { $("#contato").scrollIntoView({ behavior: "instant" }); ok.focus({ preventScroll: true }); };
     if (document.readyState === "complete") setTimeout(vaiProContato, 50); else window.addEventListener("load", () => setTimeout(vaiProContato, 50));
   }
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const invalido = [...form.querySelectorAll("[required]")].find(c => !c.value.trim() || !c.checkValidity());
     if (invalido) { invalido.focus(); invalido.reportValidity && invalido.reportValidity(); return; }
@@ -1732,6 +1732,8 @@ const EMAIL_FORMULARIO = "contatopressrodrigo@gmail.com";
     document.body.appendChild(envio);
     const botao = form.querySelector("button[type=submit]");
     botao.disabled = true; botao.querySelector("span").textContent = T("btnEnviando");
+    /* guarda a marca na base do painel (como Lead) antes de ir pro e-mail; espera no máximo 4 segundos */
+    if (window.gravaLeadNoBanco) await Promise.race([window.gravaLeadNoBanco(d), new Promise(r => setTimeout(r, 4000))]);
     envio.submit();
   });
   /* se a pessoa voltar com o botão "voltar" do navegador, o botão volta ao normal */
@@ -1748,5 +1750,9 @@ document.addEventListener("keydown", (e) => {
 /* Ano automático no rodapé */
 $("#ano").textContent = new Date().getFullYear();
 </script>
+<!-- Banco de dados do painel: vídeos, formulário (Lead) e visitas. Se não carregar, o site segue normal. -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="js/banco.js" defer></script>
+<script src="js/site-banco.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Entrar · Rodrigo Press</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--areia:#ecebe6;--branco:#fdfcfa;--oliva:#7a8450;--oliva-suave:rgba(122,132,80,.12);--texto:#22272a;--suave:#4b524c;--linha:#d6d6ce;--fonte:"Jost",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:1.5rem;background:var(--areia);color:var(--texto);font-family:var(--fonte);font-weight:300;font-size:14px;line-height:1.55}
+.cartao{width:100%;max-width:360px;background:var(--branco);border:1px solid var(--linha);border-radius:12px;padding:28px}
+.marca{margin:0 0 4px;font-size:11px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:var(--oliva)}
+h1{margin:0 0 20px;font-size:17px;font-weight:400}
+label{display:block;margin:0 0 14px;font-size:12px;color:var(--suave)}
+input{display:block;width:100%;margin-top:6px;padding:10px 12px;border:1px solid var(--linha);border-radius:6px;background:#fff;font:inherit;font-size:14px;color:var(--texto)}
+input:focus{outline:2px solid var(--oliva);outline-offset:-1px;border-color:var(--oliva)}
+button{font:inherit;cursor:pointer}
+.entrar{width:100%;margin-top:4px;padding:11px;border:1px solid var(--oliva);border-radius:4px;background:var(--oliva);color:var(--areia);font-size:12px;font-weight:400;letter-spacing:.18em;text-transform:uppercase}
+.entrar:hover{background:#68713f}
+.entrar:disabled{opacity:.6;cursor:wait}
+.link{display:block;margin:14px auto 0;padding:4px;border:0;background:none;color:var(--suave);font-size:12px;text-decoration:underline;text-underline-offset:3px}
+.link:hover{color:var(--texto)}
+.faixa{margin:0 0 16px;padding:10px 12px;border-radius:6px;font-size:13px}
+.faixa--erro{background:#f6e3df;color:#8a3324;border:1px solid #e9c4bb}
+.faixa--ok{background:var(--oliva-suave);color:#4a5230;border:1px solid #cdd0c2}
+.volta{display:block;margin-top:18px;text-align:center;font-size:12px;color:var(--suave)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main class="cartao">
+  <p class="marca">Rodrigo Press</p>
+
+  <!-- ENTRAR -->
+  <form id="form-entrar" novalidate>
+    <h1>Entrar no painel</h1>
+    <p class="faixa" id="aviso" role="alert" hidden></p>
+    <label>E-mail
+      <input type="email" name="email" autocomplete="username" required>
+    </label>
+    <label>Senha
+      <input type="password" name="senha" autocomplete="current-password" required>
+    </label>
+    <button class="entrar" type="submit">Entrar</button>
+    <button class="link" type="button" id="esqueci">Esqueci minha senha</button>
+  </form>
+
+  <!-- NOVA SENHA (aparece quando você abre o link do e-mail de recuperação) -->
+  <form id="form-nova" novalidate hidden>
+    <h1>Criar nova senha</h1>
+    <p class="faixa" id="aviso-nova" role="alert" hidden></p>
+    <label>Nova senha (mínimo 8 caracteres)
+      <input type="password" name="senha" autocomplete="new-password" minlength="8" required>
+    </label>
+    <button class="entrar" type="submit">Salvar senha</button>
+  </form>
+
+  <a class="volta" href="../">Voltar para o portfólio</a>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/banco.js"></script>
+<script>
+(async function () {
+  const db = window.banco;
+  const form = document.getElementById("form-entrar");
+  const formNova = document.getElementById("form-nova");
+  const aviso = (el, texto, tipo) => {
+    el.textContent = texto;
+    el.className = "faixa faixa--" + (tipo || "erro");
+    el.hidden = !texto;
+  };
+  const avisoEntrar = document.getElementById("aviso");
+
+  if (!db) { aviso(avisoEntrar, "Não foi possível conectar. Confira a internet e recarregue a página."); return; }
+
+  /* veio do link de recuperação de senha: mostra o formulário de nova senha */
+  let recuperando = /type=recovery/.test(location.hash) || new URLSearchParams(location.search).has("nova-senha");
+  db.auth.onAuthStateChange((evento) => {
+    if (evento === "PASSWORD_RECOVERY") { recuperando = true; mostraNovaSenha(); }
+  });
+  function mostraNovaSenha() { form.hidden = true; formNova.hidden = false; formNova.senha.focus(); }
+
+  /* já tem sessão aberta: vai direto pro painel */
+  const { data } = await db.auth.getSession();
+  if (recuperando) { if (data.session) mostraNovaSenha(); }
+  else if (data.session) { location.replace("../admin/"); return; }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = form.email.value.trim(), senha = form.senha.value;
+    if (!email || !senha) { aviso(avisoEntrar, "Preencha o e-mail e a senha."); return; }
+    const botao = form.querySelector(".entrar");
+    botao.disabled = true; botao.textContent = "Entrando...";
+    const { error } = await db.auth.signInWithPassword({ email, password: senha });
+    if (error) {
+      botao.disabled = false; botao.textContent = "Entrar";
+      const semRede = /fetch|network/i.test(error.message || "");
+      const naoConfirmado = /confirm/i.test(error.message || "");
+      aviso(avisoEntrar, semRede ? "Sem conexão. Confira a internet e tente de novo."
+        : naoConfirmado ? "Este e-mail ainda não foi confirmado no Supabase."
+        : "E-mail ou senha incorretos");
+      return;
+    }
+    location.replace("../admin/");
+  });
+
+  document.getElementById("esqueci").addEventListener("click", async () => {
+    const email = form.email.value.trim();
+    if (!email) { aviso(avisoEntrar, "Escreva o seu e-mail no campo acima e clique de novo em \"Esqueci minha senha\"."); form.email.focus(); return; }
+    const volta = location.origin + location.pathname + "?nova-senha=1";
+    const { error } = await db.auth.resetPasswordForEmail(email, { redirectTo: volta });
+    if (error) {
+      aviso(avisoEntrar, /rate|seconds/i.test(error.message || "")
+        ? "Espere um minuto antes de pedir outro e-mail."
+        : "Não foi possível enviar o e-mail agora. Tente de novo em alguns minutos.");
+      return;
+    }
+    aviso(avisoEntrar, "Se esse e-mail tiver acesso, chega uma mensagem com o link pra criar uma nova senha. Confira também o spam.", "ok");
+  });
+
+  formNova.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const avisoNova = document.getElementById("aviso-nova");
+    const senha = formNova.senha.value;
+    if (senha.length < 8) { aviso(avisoNova, "A senha precisa ter pelo menos 8 caracteres."); return; }
+    const { error } = await db.auth.updateUser({ password: senha });
+    if (error) { aviso(avisoNova, "Não foi possível salvar. Abra de novo o link do e-mail e tente outra vez."); return; }
+    aviso(avisoNova, "Senha salva. Abrindo o painel...", "ok");
+    setTimeout(() => location.replace("../admin/"), 900);
+  });
+})();
+</script>
+</body>
+</html>

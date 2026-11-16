@@ -1005,7 +1005,7 @@ const textos = {
     contFrase: "Me conta da sua marca e do que você precisa.",
     contP: "",
     btnEmail: "E-mail", btnEscrever: "Escrever",
-    lblNome: "Nome", lblEmail: "E-mail", lblMsg: "Mensagem", phNome: "Seu nome", phEmail: "Seu e-mail", phMarca: "Marca / empresa", phMsg: "O que você precisa? Formato, prazo, quantidade...", btnEnviar: "Enviar mensagem",
+    lblNome: "Nome", lblEmail: "E-mail", lblMsg: "Mensagem", phNome: "Seu nome", phEmail: "Seu e-mail", phMarca: "Marca / empresa", phMsg: "O que você precisa? Formato, prazo, quantidade...", btnEnviar: "Enviar mensagem", btnEnviando: "Enviando...",
     okRotulo: "Mensagem recebida", okObrigada: "Obrigado",
     okTexto: "Recebi a sua mensagem e respondo em breve. Se preferir, me chama no WhatsApp.",
     fechar: "Fechar", kitRotulo: "Mídia kit", kitTitulo: "Quer meu mídia kit completo?",
@@ -1061,7 +1061,7 @@ const textos = {
     contFrase: "Tell me about your brand and what you need.",
     contP: "",
     btnEmail: "Email", btnEscrever: "Write",
-    lblNome: "Name", lblEmail: "Email", lblMsg: "Message", phNome: "Your name", phEmail: "Your email", phMarca: "Brand / company", phMsg: "What do you need? Format, deadline, quantity...", btnEnviar: "Send message",
+    lblNome: "Name", lblEmail: "Email", lblMsg: "Message", phNome: "Your name", phEmail: "Your email", phMarca: "Brand / company", phMsg: "What do you need? Format, deadline, quantity...", btnEnviar: "Send message", btnEnviando: "Sending...",
     okRotulo: "Message received", okObrigada: "Thank you",
     okTexto: "I got your message and will reply soon. If you prefer, reach me on WhatsApp.",
     fechar: "Close", kitRotulo: "Media kit", kitTitulo: "Want my full media kit?",
@@ -1689,37 +1689,55 @@ function ligarFormulario(form, ok, aoEnviar) {
   });
 }
 /* FORMULÁRIO DE CONTATO
-   As mensagens chegam no e-mail abaixo pelo serviço gratuito FormSubmit (formsubmit.co).
-   Se o envio falhar, o site abre o WhatsApp com a mensagem pronta, para o contato não se perder.
-   Vazio = sempre abre o WhatsApp. */
-/* Na primeira mensagem, o FormSubmit manda um e-mail de ativação para este endereço: é só clicar no link uma vez. */
+   As mensagens vão direto para o e-mail abaixo, pelo serviço gratuito FormSubmit (formsubmit.co).
+   O envio é feito como um formulário comum: o navegador manda a mensagem e volta para o site,
+   que mostra a confirmação "Mensagem recebida". (O FormSubmit já foi ativado para este e-mail.) */
 const EMAIL_FORMULARIO = "contatopressrodrigo@gmail.com";
 (function () {
-  const form = $("#form-contato"), ok = $("#ok-contato"), erro = $("#erro-contato");
-  const whatsCom = (d) => {
-    const linhas = [`Olá, Rodrigo! Sou ${d.nome}${d.marca ? " da " + d.marca : ""}.`, d.mensagem, `Meu e-mail: ${d.email}`];
-    return "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(linhas.join("\n\n"));
+  const form = $("#form-contato"), ok = $("#ok-contato");
+  const mostraOk = (nome) => {
+    $("#ok-nome").textContent = nome ? nome.split(" ")[0] : "";
+    form.hidden = true; ok.hidden = false;
   };
-  const mostraOk = (nome, viaWhats) => {
-    $("#ok-nome").textContent = nome.split(" ")[0];
-    if (viaWhats) $("#ok-texto").textContent = T("okWhats");
-    form.hidden = true; ok.hidden = false; ok.focus();
-  };
-  form.addEventListener("submit", async (e) => {
+  /* voltou do envio: mostra a confirmação e limpa o endereço */
+  const params = new URLSearchParams(location.search);
+  if (params.get("enviado") === "1") {
+    let nome = ""; try { nome = sessionStorage.getItem("contatoNome") || ""; sessionStorage.removeItem("contatoNome"); } catch (x) {}
+    mostraOk(nome);
+    history.replaceState(null, "", location.pathname + "#contato");
+    const vaiProContato = () => { $("#contato").scrollIntoView({ behavior: "instant" }); ok.focus({ preventScroll: true }); };
+    if (document.readyState === "complete") setTimeout(vaiProContato, 50); else window.addEventListener("load", () => setTimeout(vaiProContato, 50));
+  }
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
     const invalido = [...form.querySelectorAll("[required]")].find(c => !c.value.trim() || !c.checkValidity());
     if (invalido) { invalido.focus(); invalido.reportValidity && invalido.reportValidity(); return; }
     const d = { nome: form.nome.value.trim(), marca: form.marca.value.trim(), email: form.email.value.trim(), mensagem: form.mensagem.value.trim() };
-    if (!EMAIL_FORMULARIO) { window.open(whatsCom(d), "_blank", "noopener"); mostraOk(d.nome, true); return; }
-    const botao = form.querySelector("button[type=submit]"); botao.disabled = true;
-    try {
-      const r = await fetch("https://formsubmit.co/ajax/" + EMAIL_FORMULARIO, { method: "POST", headers: { "Accept": "application/json", "Content-Type": "application/json" }, body: JSON.stringify({ Nome: d.nome, "Marca / empresa": d.marca || "-", "E-mail": d.email, Mensagem: d.mensagem, _replyto: d.email, _subject: "Novo contato pelo portfólio: " + d.nome + (d.marca ? " (" + d.marca + ")" : ""), _template: "table", _captcha: "false" }) });
-      const res = await r.json().catch(() => ({}));
-      if (!r.ok || String(res.success) !== "true") throw new Error("falhou");
-      mostraOk(d.nome, false);
-    } catch (x) {
-      erro.hidden = false; window.open(whatsCom(d), "_blank", "noopener");
-    } finally { botao.disabled = false; }
+    try { sessionStorage.setItem("contatoNome", d.nome); } catch (x) {}
+    /* monta o envio com os nomes dos campos em português (é assim que aparecem no e-mail) */
+    const envio = document.createElement("form");
+    envio.method = "POST";
+    envio.action = "https://formsubmit.co/" + EMAIL_FORMULARIO;
+    envio.hidden = true;
+    const campos = {
+      "Nome": d.nome, "Marca / empresa": d.marca || "-", "E-mail": d.email, "Mensagem": d.mensagem,
+      "_replyto": d.email,
+      "_subject": "Novo contato pelo portfólio: " + d.nome + (d.marca ? " (" + d.marca + ")" : ""),
+      "_template": "table", "_captcha": "false",
+      "_next": location.origin + location.pathname + "?enviado=1#contato"
+    };
+    for (const [k, v] of Object.entries(campos)) {
+      const i = document.createElement("input"); i.type = "hidden"; i.name = k; i.value = v; envio.appendChild(i);
+    }
+    document.body.appendChild(envio);
+    const botao = form.querySelector("button[type=submit]");
+    botao.disabled = true; botao.querySelector("span").textContent = T("btnEnviando");
+    envio.submit();
+  });
+  /* se a pessoa voltar com o botão "voltar" do navegador, o botão volta ao normal */
+  window.addEventListener("pageshow", () => {
+    const botao = form.querySelector("button[type=submit]");
+    botao.disabled = false; botao.querySelector("span").textContent = T("btnEnviar");
   });
 })();
 

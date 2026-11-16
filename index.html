@@ -132,6 +132,9 @@ p{margin:0 0 1rem}
 .link-capa:hover{color:var(--destaque)}
 /* números */
 .capa .capa-numeros strong{color:var(--destaque)}
+/* sem números na capa: o bloco some e os botões ficam sem a margem de baixo */
+.capa-numeros:empty{display:none}
+.capa .acoes:has(+ .capa-numeros:empty){margin-bottom:0}
 /* foto com bloco de cor atrás, deslocado 14px para cima e para a esquerda */
 .capa-foto{position:relative}
 .capa-foto::before{content:"";position:absolute;inset:0;transform:translate(-14px,-14px);background:var(--bloco-foto);z-index:0}
@@ -771,7 +774,6 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
           </ul>
         </div>
         <ul class="sobre-tags">
-          <li class="sobre-tag sobre-tag--bege" data-t="tagMarcas">+15 marcas</li>
           <li class="sobre-tag sobre-tag--caramelo">Porto Alegre · RS</li>
           <li class="sobre-tag-item"><a class="sobre-tag sobre-tag--marrom" href="https://wa.me/5551985222777?text=Ol%C3%A1%2C%20Rodrigo!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20falar%20sobre%20uma%20parceria." target="_blank" rel="noopener" data-t="btnFalar">Falar comigo</a></li>
         </ul>
@@ -980,7 +982,7 @@ const textos = {
     sobreP2: "Sou detalhista (bom virginiano), mas <strong>por estratégia, não por excesso</strong>. Eu entendo o que a sua marca precisa e transformo o diferencial do produto numa mensagem clara, com <strong>visão masculina e foco em venda</strong>.",
     sobreImpacto: "",
     sobreP3: "",
-    tagVideos: "", tagMarcas: "+15 marcas", tagFale: "Fale comigo", sobreTagsAria: "Em números", btnVerMeus: "Ver meus trabalhos",
+    tagVideos: "", tagMarcas: "", tagFale: "Fale comigo", sobreTagsAria: "Em números", btnVerMeus: "Ver meus trabalhos",
     metodoTituloUnico: "Cada vídeo tem um objetivo.", verbo1: "Entender.", verbo1Txt: "Briefing e público estudados antes de gravar.", verbo2: "Traduzir.", verbo2Txt: "O diferencial do produto em linguagem de gente real.", verbo3: "Converter.", verbo3Txt: "Conteúdo pensado pra virar decisão de compra.",
     metodoTitulo: "", metodoDestaque: "", metodoIntro: "",
     dif1Nome: "", dif1: "", dif2Nome: "", dif2: "", dif3Nome: "", dif3: "",
@@ -988,8 +990,8 @@ const textos = {
     destTitulo: "Conteúdos de destaque", destRotulo: "Destaques", destEtiqueta: "Destaques", destTitulo1: "Conteúdos em", destTitulo2: "destaque.", destTotal: "", destTotalTxt: "",
     assistir: "Assistir", capaVideo: "Capa do vídeo 9:16", capaQuadrada: "Capa 1:1", para: "para",
     trabTitulo: "Trabalhos por nicho", trabRotulo: "Filtre pelo seu", filtrosAria: "Filtrar trabalhos por nicho", todos: "Todos",
-    servTitulo: "Como eu te ajudo", servRotulo: "Serviços", servEtiqueta: "Serviços", servTitulo1: "Como eu", servTitulo2: "te ajudo.", servCanto: "Texto de apoio dos serviços, a personalizar.", servMaisPedido: "Mais pedido", servQuero: "Quero esse",
-    pacoteTitulo: "Precisa de conteúdo todo mês?", pacoteTexto: "Texto do pacote mensal, a personalizar.", pacoteLink: "Montar meu pacote",
+    servTitulo: "Como eu te ajudo", servRotulo: "Serviços", servEtiqueta: "Serviços", servTitulo1: "Como eu", servTitulo2: "te ajudo.", servCanto: "Escolha o formato ideal para o momento da sua marca.", servMaisPedido: "Mais pedido", servQuero: "Quero esse",
+    pacoteTitulo: "Precisa de conteúdo todo mês?", pacoteTexto: "Monto um pacote recorrente para a sua marca, com calendário e prioridade na agenda.", pacoteLink: "Montar meu pacote",
     numTitulo: "Números e depoimentos", numRotulo: "Resultados",
     procEtiqueta: "Processo", procTitulo1: "Como funciona", procTitulo2: "a parceria.", procCanto: "Texto de apoio do processo, a personalizar.",
     proc1Nome: "Etapa 01", proc1Frase: "Título da etapa.", proc1Desc: "Descrição da etapa, a personalizar.",
@@ -1036,7 +1038,7 @@ const textos = {
     sobreP2: "I'm detail oriented (a true Virgo), but <strong>by strategy, not by excess</strong>. I understand what your brand needs and turn what makes your product different into a clear message, with <strong>a male perspective and a focus on sales</strong>.",
     sobreImpacto: "",
     sobreP3: "",
-    tagVideos: "", tagMarcas: "+15 brands", tagFale: "Let's talk", sobreTagsAria: "In numbers", btnVerMeus: "See my work",
+    tagVideos: "", tagMarcas: "", tagFale: "Let's talk", sobreTagsAria: "In numbers", btnVerMeus: "See my work",
     metodoTituloUnico: "Every video has a goal.", verbo1: "Understand.", verbo1Txt: "Briefing and audience studied before filming.", verbo2: "Translate.", verbo2Txt: "Your product's edge in the language of real people.", verbo3: "Convert.", verbo3Txt: "Content designed to become a purchase decision.",
     metodoTitulo: "", metodoDestaque: "", metodoIntro: "",
     dif1Nome: "", dif1: "", dif2Nome: "", dif2: "", dif3Nome: "", dif3: "",
@@ -1044,8 +1046,8 @@ const textos = {
     destTitulo: "Featured content", destRotulo: "Highlights", destEtiqueta: "Highlights", destTitulo1: "Featured", destTitulo2: "content.", destTotal: "", destTotalTxt: "",
     assistir: "Watch", capaVideo: "Video cover 9:16", capaQuadrada: "Cover 1:1", para: "for",
     trabTitulo: "Work by niche", trabRotulo: "Filter by yours", filtrosAria: "Filter work by niche", todos: "All",
-    servTitulo: "How I can help", servRotulo: "Services", servEtiqueta: "Services", servTitulo1: "How I", servTitulo2: "can help.", servCanto: "Services intro, to be customized.", servMaisPedido: "Most requested", servQuero: "I want this",
-    pacoteTitulo: "Need content every month?", pacoteTexto: "Monthly package text, to be customized.", pacoteLink: "Build my package",
+    servTitulo: "How I can help", servRotulo: "Services", servEtiqueta: "Services", servTitulo1: "How I", servTitulo2: "can help.", servCanto: "Choose the right format for where your brand is right now.", servMaisPedido: "Most requested", servQuero: "I want this",
+    pacoteTitulo: "Need content every month?", pacoteTexto: "I put together a recurring package for your brand, with a content calendar and priority booking.", pacoteLink: "Build my package",
     numTitulo: "Numbers and testimonials", numRotulo: "Results",
     procEtiqueta: "Process", procTitulo1: "How the", procTitulo2: "partnership works.", procCanto: "Process intro, to be customized.",
     proc1Nome: "Step 01", proc1Frase: "Step title.", proc1Desc: "Step description, to be customized.",
@@ -1081,7 +1083,6 @@ const WHATSAPP = "5551985222777";
 const numerosCapa = [
   /* VÍDEOS ENTREGUES: tire as barras do começo da linha abaixo e troque 000 pelo número real
   { valor: "+000", rotulo: { pt: "vídeos entregues", en: "videos delivered" } }, */
-  { valor: "+15", rotulo: { pt: "marcas atendidas", en: "brands served" } }
 ];
 
 /* Marcas da faixa da capa (nesta ordem) */
@@ -1119,18 +1120,28 @@ const categorias = [
     descricao: { pt: "Experiências, viagens e sabores com a sua marca em cena.", en: "Experiences, travel and flavors with your brand on scene." }, videos: [] }
 ];
 
-/* Serviços: placeholders, a personalizar. destaque: true mostra o selo "Mais pedido". */
+/* Serviços (quatro). destaque: true mostra o selo "Mais pedido". O botão "Quero esse" abre o WhatsApp citando o serviço. */
 const servicos = [
-  { titulo: { pt: "Serviço 01", en: "Service 01" }, descricao: { pt: "Descrição do serviço, a personalizar.", en: "Service description, to be customized." }, tags: { pt: [], en: [] } },
-  { titulo: { pt: "Serviço 02", en: "Service 02" }, descricao: { pt: "Descrição do serviço, a personalizar.", en: "Service description, to be customized." }, tags: { pt: [], en: [] } },
-  { titulo: { pt: "Serviço 03", en: "Service 03" }, descricao: { pt: "Descrição do serviço, a personalizar.", en: "Service description, to be customized." }, tags: { pt: [], en: [] } },
-  { titulo: { pt: "Serviço 04", en: "Service 04" }, descricao: { pt: "Descrição do serviço, a personalizar.", en: "Service description, to be customized." }, tags: { pt: [], en: [] } }
+  { titulo: { pt: "Vídeos UGC", en: "UGC videos" }, destaque: true,
+    descricao: { pt: "Vídeos naturais e bonitos, com roteiro e gancho forte, prontos para o orgânico e para anúncios.",
+                 en: "Natural, beautiful videos with a script and a strong hook, ready for organic posts and ads." },
+    tags: { pt: ["Review", "Unboxing", "Uso real"], en: ["Review", "Unboxing", "Real use"] } },
+  { titulo: { pt: "Criativos para anúncio", en: "Ad creatives" },
+    descricao: { pt: "Versões do mesmo vídeo com ganchos diferentes, para testar no tráfego e descobrir o que mais vende.",
+                 en: "Versions of the same video with different hooks, to test in paid traffic and find out what sells best." },
+    tags: { pt: ["Meta", "Reels", "Testes A/B"], en: ["Meta", "Reels", "A/B tests"] } },
+  { titulo: { pt: "Fotos de produto", en: "Product photos" },
+    descricao: { pt: "Fotos lifestyle com luz natural e composição limpa, para site, loja virtual e redes.",
+                 en: "Lifestyle photos with natural light and clean composition, for your website, online store and social media." },
+    tags: { pt: ["Lifestyle", "Produto", "E-commerce"], en: ["Lifestyle", "Product", "E-commerce"] } },
+  { titulo: { pt: "Publi no meu perfil", en: "Post on my profile" },
+    descricao: { pt: "Sua marca no @pressrodrigo, falando com quem já acompanha a minha rotina.",
+                 en: "Your brand on @pressrodrigo, talking to the people who already follow my routine." },
+    tags: { pt: ["Reels", "Stories", "Collab"], en: ["Reels", "Stories", "Collab"] } }
 ];
 
 /* Métricas com contador (só aparecem se a página tiver o bloco #lista-metricas) */
-const metricas = [
-  { alvo: 15, casas: 0, antes: "+", depois: "", rotulo: { pt: "marcas atendidas", en: "brands served" } }
-];
+const metricas = [];
 
 /* Fotos da galeria (pasta fotos/). arquivo "" mostra um espaço reservado. */
 const fotos = [

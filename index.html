@@ -837,7 +837,7 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
       <p class="cat-etiqueta" data-t="depoEtiqueta">Depoimentos</p>
       <div class="depo-linha">
         <h2 id="titulo-numeros" class="cat-titulo"><span data-t="depoTitulo1">O que dizem</span> <em data-t="depoTitulo2">as marcas.</em></h2>
-        <p class="depo-canto" data-t="depoCanto">Avaliações reais de marcas que viram o produto virar desejo.</p>
+        <p class="depo-canto" data-t="depoCanto">Avaliações reais de marcas e agências que confiaram no meu trabalho.</p>
       </div>
       <p class="depo-selo" data-t-html="depoSelo"></p>
     </div>
@@ -999,8 +999,8 @@ const textos = {
     proc3Nome: "Gravação", proc3Frase: "Produzir com estratégia.", proc3Desc: "Em até 7 dias úteis após a aprovação do roteiro, gravo e edito com gancho forte, ritmo e foco no que faz o cliente decidir.",
     proc4Nome: "Entrega", proc4Frase: "Pronto para converter.", proc4Desc: "Arquivos finais em alta resolução pelo Google Drive, sem marca d'água, após a quitação do pagamento.",
     fotosEtiqueta: "Fotografia", fotosTitulo1: "Fotos de", fotosTitulo2: "produto.", fotosCanto: "Clique para ver de perto.", fotosBarra: "Fotos", lbFechar: "Fechar", videoAmpliado: "Vídeo ampliado", lbAnterior: "Foto anterior", lbProxima: "Próxima foto", fotoAmpliar: "Ver de perto", fotoEmBreve: "Foto em breve",
-    depoEtiqueta: "Depoimentos", depoTitulo1: "O que dizem", depoTitulo2: "as marcas.", depoVerificada: "Avaliação verificada", depoCanto: "Os depoimentos reais entram aqui.",
-    depoSelo: "",
+    depoEtiqueta: "Depoimentos", depoTitulo1: "O que dizem", depoTitulo2: "as marcas.", depoVerificada: "Avaliação verificada", depoCanto: "Avaliações reais de marcas e agências que confiaram no meu trabalho.",
+    depoSelo: '<b>★ 5,0</b> <i>·</i> avaliações verificadas na plataforma Seu Influencer',
     contTitulo: "Bora criar juntos", contRotulo: "Contato",
     contFrase: "Me conta da sua marca e do que você precisa.",
     contP: "",
@@ -1055,8 +1055,8 @@ const textos = {
     proc3Nome: "Recording", proc3Frase: "Produce with strategy.", proc3Desc: "Within 7 business days of script approval, I record and edit with a strong hook, pacing and focus on what makes customers decide.",
     proc4Nome: "Delivery", proc4Frase: "Ready to convert.", proc4Desc: "Final high-resolution files via Google Drive, watermark-free, once payment is complete.",
     fotosEtiqueta: "Photography", fotosTitulo1: "Product", fotosTitulo2: "photos.", fotosCanto: "Click to see up close.", fotosBarra: "Photos", lbFechar: "Close", videoAmpliado: "Enlarged video", lbAnterior: "Previous photo", lbProxima: "Next photo", fotoAmpliar: "See up close", fotoEmBreve: "Photo coming soon",
-    depoEtiqueta: "Testimonials", depoTitulo1: "What brands", depoTitulo2: "are saying.", depoVerificada: "Verified review", depoCanto: "Real testimonials go here.",
-    depoSelo: "",
+    depoEtiqueta: "Testimonials", depoTitulo1: "What brands", depoTitulo2: "say.", depoVerificada: "Verified review", depoCanto: "Real reviews from brands and agencies that trusted my work.",
+    depoSelo: '<b>★ 5.0</b> <i>·</i> verified reviews on the Seu Influencer platform',
     contTitulo: "Let's create together", contRotulo: "Contact",
     contFrase: "Tell me about your brand and what you need.",
     contP: "",
@@ -1086,7 +1086,7 @@ const numerosCapa = [
 ];
 
 /* Marcas da faixa da capa (nesta ordem) */
-const marcas = ["TB Financial","Spotter","Seven Marketing","Ráwve","Quitou BR","Método Polvo","Luigi","JotaPe","Huub","Franca Griffe","FormaFit","Ca.Nuts","Azulim","AGL Recarga","AGL Brasil","Sincrofit"];
+const marcas = ["TB Financial","Spotter","Seven Marketing","Ráwve","Quitou BR","Método Polvo","Luigi","JotaPe","Haag","Franca Griffe","FormaFit","Ca.Nuts","Azulim","AGL Recarga","AGL Brasil","Sincrofit","Zavi Agência","HG Empreendimentos"];
 
 /* Conteúdos de destaque (três cards grandes): placeholders, a personalizar.
    link: ONDE ENTRA O LINK DO VÍDEO | youtube: link do Shorts para tocar no próprio site
@@ -1156,12 +1156,25 @@ const fotos = [
   { arquivo: "09-jaqueta.jpg",              nicho: { pt: "Moda", en: "Fashion" } }
 ];
 
-/* Depoimentos do carrossel: placeholders. verificado: true mostra as estrelas e o selo "Avaliação verificada". */
+/* Depoimentos do carrossel (avaliações da plataforma Seu Influencer), nesta ordem. verificado: true mostra as estrelas e o selo "Avaliação verificada". */
 const depoimentos = [
-  { marca: "Cliente 01", texto: "Espaço para o depoimento real de uma marca." },
-  { marca: "Cliente 02", texto: "Espaço para o depoimento real de uma marca." },
-  { marca: "Cliente 03", texto: "Espaço para o depoimento real de uma marca." },
-  { marca: "Cliente 04", texto: "Espaço para o depoimento real de uma marca." }
+  { marca: "Zavi Agência", verificado: true,
+    texto: { pt: "O vídeo ficou simplesmente sensacional. Dá para ver o cuidado que você teve com o roteiro, a naturalidade na frente da câmera e a excelente entrega do conteúdo. Você captou perfeitamente a essência da campanha! É um privilégio enorme ter você no nosso time de UGC. Parabéns pelo trabalho impecável!",
+             en: "The video turned out simply amazing. You can see the care you put into the script, how natural you are on camera and the excellent delivery of the content. You perfectly captured the essence of the campaign! It is a huge privilege to have you on our UGC team. Congratulations on the flawless work!" } },
+  { marca: "Haag", verificado: true,
+    texto: { pt: "Excelente profissional, muito empenhado e comprometido com o trabalho. Realizou todas as entregas dentro do prazo e com muita qualidade. Foi uma experiência sensacional e, com certeza, faremos novos trabalhos juntos!",
+             en: "An excellent professional, very dedicated and committed to the work. He made every delivery on time and with great quality. It was an amazing experience and we will definitely work together again!" } },
+  { marca: "Ráwve", verificado: true,
+    texto: { pt: "Rodrigo, muito habilidoso em edição de vídeo, segue muito bem o roteiro, sempre um prazer trabalhar!",
+             en: "Rodrigo is very skilled at video editing and follows the script really well. Always a pleasure to work with!" } },
+  { marca: "Quitou BR", verificado: true,
+    texto: { pt: "Claro, criativo e muito assertivo na criação do conteúdo. Conseguiu conduzir e transmitir a mensagem com maestria, deixando tudo ainda mais especial. Excelente trabalho!",
+             en: "Clear, creative and very assertive in creating the content. He guided and delivered the message masterfully, making everything even more special. Excellent work!" } },
+  { marca: "HG Empreendimentos", verificado: true,
+    texto: { pt: "Ótimo trabalho!", en: "Great work!" } },
+  { marca: "Ráwve", verificado: true,
+    texto: { pt: "Rodrigo foi muito ágil, entregou conteúdos com excelente roteiro, edição e qualidade!",
+             en: "Rodrigo was very quick and delivered content with excellent scripting, editing and quality!" } }
 ];
 
 /* =====================================================================
@@ -1255,7 +1268,7 @@ function renderiza() {
   if ($("#lista-metricas")) $("#lista-metricas").innerHTML = metricas.map(m => `
     <div class="metrica"><strong data-alvo="${m.alvo}" data-casas="${m.casas}" data-antes="${esc(m.antes)}" data-depois="${esc(m.depois)}">${esc(m.antes)}${formata(mostraFinal ? m.alvo : 0, m.casas)}${esc(m.depois)}</strong><span class="rotulo">${esc(tr(m.rotulo))}</span></div>`).join("");
   const cardDepo = (d, copia) => `
-    <li class="depo-card"${copia ? ' aria-hidden="true"' : ""}>${d.verificado ? '<span class="depo-estrelas" aria-label="5 estrelas">★★★★★</span>' : ""}<blockquote>“${esc(d.texto)}”</blockquote><div class="depo-pe"><strong>${esc(d.marca)}</strong>${d.verificado ? `<span><svg viewBox="0 0 16 16" width="11" height="11" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 8.2l2 2 4-4.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>${esc(T("depoVerificada"))}</span>` : ""}</div></li>`;
+    <li class="depo-card"${copia ? ' aria-hidden="true"' : ""}>${d.verificado ? '<span class="depo-estrelas" aria-label="5 estrelas">★★★★★</span>' : ""}<blockquote>“${esc(tr(d.texto))}”</blockquote><div class="depo-pe"><strong>${esc(d.marca)}</strong>${d.verificado ? `<span><svg viewBox="0 0 16 16" width="11" height="11" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 8.2l2 2 4-4.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>${esc(T("depoVerificada"))}</span>` : ""}</div></li>`;
   /* a lista vai duas vezes para o carrossel girar sem pulo */
   $("#lista-depoimentos").innerHTML = depoimentos.map(d => cardDepo(d, false)).join("") + depoimentos.map(d => cardDepo(d, true)).join("");
   ajustaInicioDepo();

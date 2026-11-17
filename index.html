@@ -738,8 +738,11 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
   .sobre{padding-bottom:40px}
   .faixa-metodo{padding:40px 0}
   .capa .faixa{margin-top:2rem}
-  html.com-barra-cat .capa{padding-top:calc(68px + 1.6rem)}
+  /* barra de categorias fina, sempre visível, logo abaixo do menu */
+  html.com-barra-cat .capa{padding-top:calc(68px + 40px + 1.2rem)}
   html.com-barra-cat{scroll-padding-top:120px}
+  .barra-cat-links{gap:1.5rem}
+  .barra-cat-links a{padding:0;height:39px;display:flex;align-items:center;font-size:.6rem;letter-spacing:.2em}
 
   /* espaços internos */
   .cat-etiqueta{margin-bottom:.9rem}
@@ -1597,7 +1600,7 @@ function ligaSetas(trilho, caixa) {
     trilho.scrollTo({ left: destino, behavior: semMovimento ? "auto" : "smooth" });
     /* se o navegador não fizer a rolagem suave, garante que a linha chegue no lugar */
     clearTimeout(trilho._garante);
-    trilho._garante = setTimeout(() => { if (Math.abs(trilho.scrollLeft - destino) > 6) trilho.scrollLeft = destino; confere(); }, 700);
+    trilho._garante = setTimeout(() => { if (Math.abs(trilho.scrollLeft - destino) > 6) trilho.scrollTo({ left: destino, behavior: "instant" }); confere(); }, 700);
   };
   if (!caixa.dataset.ligada) {
     caixa.dataset.ligada = "1";
@@ -1801,8 +1804,12 @@ function ligaVideo(video) {
   const vaiPara = (id) => {
     const alvo = document.getElementById(id);
     if (!alvo) return;
-    const y = alvo.getBoundingClientRect().top + scrollY - alturaBarras() - 16;
+    const destino = () => Math.max(0, Math.min(alvo.getBoundingClientRect().top + scrollY - alturaBarras() - 16, document.documentElement.scrollHeight - innerHeight));
+    const y = destino();
     window.scrollTo({ top: y, behavior: semMovimento ? "auto" : "smooth" });
+    /* garante a chegada: se a rolagem suave não terminar, completa (descontando menu e barra) */
+    clearTimeout(vaiPara.espera);
+    vaiPara.espera = setTimeout(() => { const y2 = destino(); if (Math.abs(scrollY - y2) > 4) window.scrollTo({ top: y2, behavior: "instant" }); }, 900);
   };
   document.addEventListener("click", (e) => {
     const a = e.target.closest('#barra-cat-links a, #cat-links a');
@@ -1813,13 +1820,7 @@ function ligaVideo(video) {
   let pedido = false;
   const atualiza = () => {
     pedido = false;
-    /* no celular a barra só aparece quando a pessoa chega nas Categorias; no computador fica sempre */
-    let mostra = true;
-    if (window.matchMedia("(max-width:700px)").matches) {
-      const sec = $("#trabalhos");
-      mostra = !!sec && sec.getBoundingClientRect().top <= $(".topo").offsetHeight + 60;
-    }
-    barra.classList.toggle("visivel", mostra);
+    barra.classList.add("visivel");
     const limite = alturaBarras() + 40;
     let atual = null;
     document.querySelectorAll("#categorias .categoria").forEach(c => { if (c.getBoundingClientRect().top <= limite) atual = c.id.replace("cat-", ""); });

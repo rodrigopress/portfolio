@@ -267,6 +267,12 @@ a.sobre-tag--marrom:hover{background:#7a8450}
 .destaques-escuro .destaque .rotulo{margin:.5rem 0 .7rem;color:#cdd0c2}
 .destaques-escuro .destaque p{color:#cdd0c2;font-size:.92rem}
 .destaques-escuro .destaque--player .vplayer:not(.tocando) .circulo{opacity:1}
+.destaques-apoio{margin:1.2rem 0 0;max-width:34rem;color:#cdd0c2}
+.destaques-escuro .vpilula{background:rgba(236,235,230,.9)}
+.dest-estrelas{display:block;color:#7a8450;font-size:.9rem;letter-spacing:.22em}
+.dest-avaliacao{margin:.6rem 0 .9rem;font-family:var(--corpo);font-size:.88rem;font-weight:300;line-height:1.6;color:#ecebe6}
+.dest-selo{display:flex;align-items:center;gap:.45rem;padding-top:.8rem;border-top:1px solid #4b524c;font-size:10px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:#7a8450}
+.dest-selo svg{flex-shrink:0}
 .destaques-total{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:.4rem 1.2rem;margin-top:clamp(3rem,6vw,4.5rem);padding-top:clamp(2rem,4vw,3rem);border-top:1px solid #4b524c;text-align:center}
 .destaques-total strong{font-family:var(--titulo);font-weight:400;font-size:clamp(3rem,7vw,5rem);line-height:1;color:#7a8450}
 .destaques-total span{font-size:1rem;color:#cdd0c2}
@@ -803,7 +809,8 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
   <div class="wrap">
     <div class="destaques-cabeca revela">
       <p class="cat-etiqueta" data-t="destEtiqueta">Destaques</p>
-      <h2 id="titulo-destaques" class="destaques-titulo"><span data-t="destTitulo1">Conteúdos que</span> <em data-t="destTitulo2">mais rodaram.</em></h2>
+      <h2 id="titulo-destaques" class="destaques-titulo"><span data-t="destTitulo1">O que as marcas disseram</span> <em data-t="destTitulo2">depois da entrega.</em></h2>
+      <p class="destaques-apoio" data-t="destApoio">Três campanhas, três nichos, avaliação 5 estrelas em todas.</p>
     </div>
     <div class="destaques" id="lista-destaques"><!-- preenchido pelo script (array destaques) --></div>
   </div>
@@ -1003,7 +1010,7 @@ const textos = {
     metodoTitulo: "", metodoDestaque: "", metodoIntro: "",
     dif1Nome: "", dif1: "", dif2Nome: "", dif2: "", dif3Nome: "", dif3: "",
     prom1: "", prom2: "", prom3: "",
-    destTitulo: "Conteúdos de destaque", destRotulo: "Destaques", destEtiqueta: "Destaques", destTitulo1: "Conteúdos em", destTitulo2: "destaque.", destTotal: "", destTotalTxt: "",
+    destTitulo: "Conteúdos de destaque", destRotulo: "Destaques", destEtiqueta: "Destaques", destTitulo1: "O que as marcas disseram", destTitulo2: "depois da entrega.", destApoio: "Três campanhas, três nichos, avaliação 5 estrelas em todas.", destSelo: "Avaliação verificada · Seu Influencer", destEstrelas: "5 estrelas", destTotal: "", destTotalTxt: "",
     assistir: "Assistir", capaVideo: "Capa do vídeo 9:16", capaQuadrada: "Capa 1:1", para: "para",
     trabTitulo: "Trabalhos por nicho", trabRotulo: "Filtre pelo seu", filtrosAria: "Filtrar trabalhos por nicho", todos: "Todos",
     servTitulo: "Como eu te ajudo", servRotulo: "Serviços", servEtiqueta: "Serviços", servTitulo1: "Como eu", servTitulo2: "te ajudo.", servCanto: "Escolha o formato ideal para o momento da sua marca.", servMaisPedido: "Mais pedido", servQuero: "Quero esse",
@@ -1059,7 +1066,7 @@ const textos = {
     metodoTitulo: "", metodoDestaque: "", metodoIntro: "",
     dif1Nome: "", dif1: "", dif2Nome: "", dif2: "", dif3Nome: "", dif3: "",
     prom1: "", prom2: "", prom3: "",
-    destTitulo: "Featured content", destRotulo: "Highlights", destEtiqueta: "Highlights", destTitulo1: "Featured", destTitulo2: "content.", destTotal: "", destTotalTxt: "",
+    destTitulo: "Featured content", destRotulo: "Highlights", destEtiqueta: "Highlights", destTitulo1: "What brands said", destTitulo2: "after delivery.", destApoio: "Three campaigns, three niches, 5-star reviews on all of them.", destSelo: "Verified review · Seu Influencer", destEstrelas: "5 stars", destTotal: "", destTotalTxt: "",
     assistir: "Watch", capaVideo: "Video cover 9:16", capaQuadrada: "Cover 1:1", para: "for",
     trabTitulo: "Work by niche", trabRotulo: "Filter by yours", filtrosAria: "Filter work by niche", todos: "All",
     servTitulo: "How I can help", servRotulo: "Services", servEtiqueta: "Services", servTitulo1: "How I", servTitulo2: "can help.", servCanto: "Choose the right format for where your brand is right now.", servMaisPedido: "Most requested", servQuero: "I want this",
@@ -1104,16 +1111,15 @@ const numerosCapa = [
 /* Marcas da faixa da capa (nesta ordem) */
 const marcas = ["TB Financial","Spotter","Seven Marketing","Ráwve","Quitou BR","Método Polvo","Luigi Limoncello","JotaPe","Haag","Franca Griffe","FormaFit","Ca.Nuts","Azulim","AGL Brasil","Sincrofit","Zavi Agência","HG Empreendimentos"];
 
-/* Conteúdos de destaque (três cards grandes): placeholders, a personalizar.
-   link: ONDE ENTRA O LINK DO VÍDEO | youtube: link do Shorts para tocar no próprio site
-   capa: ONDE ENTRA A CAPA 9:16 (ex.: "destaque1.jpg"). Deixe "" para o bloco com degradê. */
+/* DESTAQUES: três vídeos, cada um com a avaliação real da marca (plataforma Seu Influencer).
+   youtube: ID do Shorts | marca e nicho aparecem em cima do vídeo | avaliacao aparece embaixo */
 const destaques = [
-  { link: "#destaques", capa: "", numero: "+00", rotulo: { pt: "views", en: "views" },
-    titulo: { pt: "Vídeo 01", en: "Video 01" }, contexto: { pt: "Nicho · contexto do vídeo, a personalizar", en: "Niche · video context, to be customized" } },
-  { link: "#destaques", capa: "", numero: "+00", rotulo: { pt: "views", en: "views" },
-    titulo: { pt: "Vídeo 02", en: "Video 02" }, contexto: { pt: "Nicho · contexto do vídeo, a personalizar", en: "Niche · video context, to be customized" } },
-  { link: "#destaques", capa: "", numero: "+00", rotulo: { pt: "views", en: "views" },
-    titulo: { pt: "Vídeo 03", en: "Video 03" }, contexto: { pt: "Nicho · contexto do vídeo, a personalizar", en: "Niche · video context, to be customized" } }
+  { youtube: "EGRW6u2q0OU", marca: "Haag", nicho: { pt: "Moda", en: "Fashion" },
+    avaliacao: { pt: "Realizou todas as entregas dentro do prazo e com muita qualidade.", en: "Delivered everything on time and with great quality." } },
+  { youtube: "24rXfOEKTPg", marca: "Ráwve", nicho: { pt: "Fitness", en: "Fitness" },
+    avaliacao: { pt: "Muito habilidoso em edição de vídeo, segue muito bem o roteiro.", en: "Very skilled at video editing, follows the script really well." } },
+  { youtube: "dsmPoEfcfVQ", marca: "Quitou BR", nicho: { pt: "Finanças", en: "Finance" },
+    avaliacao: { pt: "Claro, criativo e muito assertivo. Transmitiu a mensagem com maestria.", en: "Clear, creative and very assertive. Delivered the message masterfully." } }
 ];
 
 /* CATEGORIAS E VÍDEOS (seção 03)
@@ -1280,31 +1286,21 @@ function renderiza() {
   $("#capa-numeros").innerHTML = numerosCapa.map(n => `<div><strong>${esc(tr(n.valor))}</strong><span>${esc(tr(n.rotulo))}</span></div>`).join("");
 
   $("#lista-destaques").innerHTML = destaques.map(d => {
-    const info = `
-      <div class="destaque-info">
-        <strong class="grande">${esc(tr(d.numero))}</strong>
-        <span class="rotulo">${esc(tr(d.rotulo))}</span>
-        <p>${esc(tr(d.contexto))}</p>
-      </div>`;
-    const capa = d.capa ? `<img class="vposter" src="${esc(d.capa)}" alt="" loading="lazy" decoding="async">` : "";
-    if (d.youtube) {
-      /* vídeo toca aqui mesmo, no player limpo do site */
-      return `
-    <article class="destaque destaque--player ${revela}">
-      <div class="midia midia--9x16 vplayer vplayer--yt" data-yt="${esc(idDoYoutube(d.youtube))}">
-        ${capa}
-        <span class="vpilula">${esc(tr(d.titulo))}</span>
-        <button class="vplay" type="button" data-rotulo="${esc(tr(d.titulo))}" aria-label="${esc(T("reproduzir"))}: ${esc(tr(d.titulo))}"><span class="circulo" aria-hidden="true"></span></button>
-      </div>${info}
-    </article>`;
-    }
+    const yt = idDoYoutube(d.youtube);
+    const rotulo = `${d.marca} · ${tr(d.nicho)}`;
     return `
-    <a class="destaque ${revela}" href="${esc(d.link)}" target="_blank" rel="noopener" aria-label="${esc(T("assistir"))}: ${esc(tr(d.titulo))}, ${esc(tr(d.numero))} ${esc(tr(d.rotulo))}">
-      <div class="midia midia--9x16">
-        ${capa || `<span class="legenda">${esc(T("capaVideo"))}</span>`}
-        ${d.capa ? "" : `<span class="play" aria-hidden="true"></span>`}
-      </div>${info}
-    </a>`;
+    <article class="destaque destaque--player ${revela}">
+      <div class="midia midia--9x16 vplayer vplayer--yt" data-yt="${esc(yt)}">
+        <img class="vposter" src="${CAPAS_PROPRIAS.includes(yt) ? `capas/${esc(yt)}.jpg` : `https://i.ytimg.com/vi/${esc(yt)}/oardefault.jpg`}" alt="" loading="lazy" decoding="async" width="1080" height="1920">
+        <span class="vpilula">${esc(rotulo)}</span>
+        <button class="vplay" type="button" data-rotulo="${esc(rotulo)}" aria-label="${esc(T("reproduzir"))}: ${esc(rotulo)}"><span class="circulo" aria-hidden="true"></span></button>
+      </div>
+      <div class="destaque-info">
+        <span class="dest-estrelas" role="img" aria-label="${esc(T("destEstrelas"))}">★★★★★</span>
+        <blockquote class="dest-avaliacao">“${esc(tr(d.avaliacao))}”</blockquote>
+        <span class="dest-selo"><svg viewBox="0 0 16 16" width="11" height="11" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M5 8.2l2 2 4-4.2" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>${esc(T("destSelo"))}</span>
+      </div>
+    </article>`;
   }).join("");
   document.querySelectorAll("#lista-destaques .vplayer--yt").forEach(ligaYoutube);
 

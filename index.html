@@ -1383,7 +1383,7 @@ function renderizaCategorias(classeRevela) {
       const yt = !v.arquivo && v.youtube ? idDoYoutube(v.youtube) : "";
       if (!v.arquivo && !yt) return `<li><div class="vplayer sem-video" data-aviso="${esc(T("videoEmBreve"))}"></div></li>`;
       const midia = yt
-        ? `<img class="vposter" src="capas/${esc(yt)}.jpg?v=4" data-capa="capas/${esc(yt)}.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(yt)}/oardefault.jpg'" alt="" loading="lazy" decoding="async" width="1080" height="1920">`
+        ? `<img class="vposter" src="${esc(arquivoCapa(yt))}?v=4" data-capa="${esc(arquivoCapa(yt))}" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(yt)}/oardefault.jpg'" alt="" loading="lazy" decoding="async" width="1080" height="1920">`
         : `<video src="${esc(v.arquivo)}"${v.capa ? ` poster="${esc(v.capa)}"` : ""} preload="metadata" playsinline></video>`;
       return `
         <li>
@@ -1431,6 +1431,8 @@ function ligaCarrossel(car) {
   window.addEventListener("resize", confere);
   confere();
 }
+/* o GitHub Pages esconde arquivos que começam com "_", então essas capas ganham um x na frente */
+function arquivoCapa(id) { return "capas/" + (id.startsWith("_") ? "x" + id : id) + ".jpg"; }
 function idDoYoutube(link) {
   const m = String(link).match(/(?:shorts\/|embed\/|youtu\.be\/|[?&]v=)([\w-]{11})/);
   return m ? m[1] : String(link).trim();

@@ -1,7 +1,8 @@
 /* ============================================================
    LIGA O PORTFÓLIO AO PAINEL
-   1. Vídeos: o site lê a tabela "videos" (só os visíveis) e soma no fim da linha
-      da categoria certa. Os vídeos escritos no site continuam aparecendo.
+   1. Vídeos: o site lê a tabela "videos" (só os visíveis) e monta as Categorias com eles,
+      na ordem do painel. Esconder, reordenar ou adicionar no painel muda o site na hora.
+      Os vídeos escritos no index.html são só reserva: aparecem se o banco estiver vazio ou fora do ar.
    2. Formulário: cada mensagem entra na tabela "marcas" como Lead
       (e continua indo pro seu e-mail, como antes).
    3. Visitas: grava uma linha na tabela "visitas" por visita,
@@ -20,10 +21,12 @@
         .eq("visivel", true)
         .order("ordem", { ascending: true });
       if (error || !Array.isArray(data)) return;
-      if (!data.length) return; /* nada no painel: ficam os vídeos escritos no site */
+      if (!data.length) return; /* nada visível no painel: ficam os vídeos escritos no site, como reserva */
       const ehYoutube = (l) => /youtu\.?be/i.test(l);
       /* nomes antigos de nicho continuam valendo */
       const apelidos = { negocios: "financas", lifestyle: "gastronomia" };
+      /* o painel manda: as categorias passam a ter só os vídeos visíveis do banco, na ordem do painel */
+      categorias.forEach(c => { c.videos = []; });
       const jaTem = (cat, link) => cat.videos.some(x => x && (x.youtube || x.arquivo) && (idDoYoutube(x.youtube || x.arquivo) === idDoYoutube(link)));
       data.forEach(v => {
         const cat = categorias.find(c => c.chave === (apelidos[v.nicho] || v.nicho));

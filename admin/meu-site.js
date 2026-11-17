@@ -69,7 +69,7 @@ Painel.abas.portfolio = {
       <div class="cartao">
         <div class="cartao-cabeca">
           <h2>Meus vídeos</h2>
-          <span class="dica">Arraste pela alça pra mudar a ordem. Os visíveis entram no fim da linha do nicho, depois dos vídeos que já estão no site.</span>
+          <span class="dica">Arraste pela alça pra mudar a ordem. O site mostra os vídeos visíveis, nesta ordem, cada um na linha do seu nicho.</span>
           <div class="acoes"><button class="btn btn--principal" type="button" data-novo-video>${ICONES.mais}Adicionar vídeo</button></div>
         </div>
         <div class="rola">${tabelaVideos(videos)}</div>

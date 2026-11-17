@@ -581,6 +581,9 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
 .vrodape{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:3.6rem 1rem 1rem;background:linear-gradient(to top,rgba(20,23,25,.72),rgba(20,23,25,0));pointer-events:none;transition:opacity .4s}
 .vrodape strong{display:block;font-family:var(--titulo);font-weight:400;font-size:1.05rem;line-height:1.2;color:#ecebe6}
 .vrodape span{display:block;margin-top:.3rem;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#cdd0c2}
+/* Categorias: só o nome da marca, uma linha, no canto inferior esquerdo, com sombra suave embaixo */
+.vrodape--marca{padding:4.2rem .95rem .9rem;background:linear-gradient(to top,rgba(20,23,25,.62),rgba(20,23,25,.28) 45%,rgba(20,23,25,0))}
+.vrodape--marca span{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--corpo);font-size:.64rem;font-weight:500;letter-spacing:.2em;color:#ecebe6;text-shadow:0 1px 6px rgba(20,23,25,.35)}
 .vplay{position:absolute;inset:0;z-index:3;display:grid;place-items:center;width:100%;padding:0;border:0;border-radius:12px;background:transparent;cursor:pointer}
 .vplay .circulo{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:rgba(236,235,230,.28);border:1px solid rgba(236,235,230,.65);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);transition:transform .3s,opacity .3s}
 .vplay .circulo::before{content:"";margin-left:4px;border-left:13px solid #ecebe6;border-top:8px solid transparent;border-bottom:8px solid transparent}
@@ -1127,7 +1130,8 @@ const destaques = [
    Cada categoria vira uma linha que desliza pro lado, com setas no computador. */
 /* BARRA FIXA DE CATEGORIAS: true liga, false desliga */
 const BARRA_CATEGORIAS = true;
-/* CAPAS PRÓPRIAS: suba a imagem na pasta capas com o nome capas/<ID do vídeo>.jpg e coloque o ID aqui. */
+/* CAPAS: nas Categorias, toda capa é um quadro do próprio vídeo, salvo em capas/<ID do vídeo>.jpg (640x1138).
+   Se a imagem faltar, entra a capa do YouTube. A lista abaixo vale só para os Destaques. */
 const CAPAS_PROPRIAS = ["3H1RhTFE5fk", "Oj9AT6aafsc", "b6aZgx0M5ls"];
 const categorias = [
   { chave: "moda", nome: { pt: "Moda", en: "Fashion" },
@@ -1379,14 +1383,13 @@ function renderizaCategorias(classeRevela) {
       const yt = !v.arquivo && v.youtube ? idDoYoutube(v.youtube) : "";
       if (!v.arquivo && !yt) return `<li><div class="vplayer sem-video" data-aviso="${esc(T("videoEmBreve"))}"></div></li>`;
       const midia = yt
-        ? `<img class="vposter" src="${CAPAS_PROPRIAS.includes(yt) ? `capas/${esc(yt)}.jpg?v=3` : `https://i.ytimg.com/vi/${esc(yt)}/oardefault.jpg`}" data-capa="capas/${esc(yt)}.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(yt)}/oardefault.jpg'" alt="" loading="lazy" decoding="async" width="1080" height="1920">`
+        ? `<img class="vposter" src="capas/${esc(yt)}.jpg?v=4" data-capa="capas/${esc(yt)}.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(yt)}/oardefault.jpg'" alt="" loading="lazy" decoding="async" width="1080" height="1920">`
         : `<video src="${esc(v.arquivo)}"${v.capa ? ` poster="${esc(v.capa)}"` : ""} preload="metadata" playsinline></video>`;
       return `
         <li>
           <div class="vplayer${yt ? " vplayer--yt" : ""}" data-aviso="${esc(T("videoEmBreve"))}"${yt ? ` data-yt="${esc(yt)}"` : ""}>
             ${midia}
-            <span class="vpilula">${esc(v.marca)}</span>
-            <div class="vrodape"><strong>${esc(v.marca)}</strong><span>${esc(v.destaque || nome)}</span></div>
+            <div class="vrodape vrodape--marca"><span>${esc(v.marca)}</span></div>
             <button class="vplay" type="button" data-rotulo="${esc(v.marca)}, ${esc(nome)}" aria-label="${esc(T("reproduzir"))}: ${esc(v.marca)}, ${esc(nome)}"><span class="circulo" aria-hidden="true"></span></button>
           </div>
         </li>`;

@@ -565,6 +565,24 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
 .cat-seta--prox{right:-23px}
 @media (max-width:1100px){.cat-grade{--vis:3.5}}
 @media (max-width:900px){.cat-seta--ant{left:4px}.cat-seta--prox{right:4px}}
+/* CAPA NO CELULAR: rótulo, nome, foto quadrada, frase, texto, botões e faixa.
+   O bloco de texto "se desfaz" (display:contents) só aqui, e cada parte ganha uma ordem.
+   No computador nada muda: texto à esquerda, foto à direita. */
+@media (max-width:900px){
+  .capa,html.com-barra-cat .capa{padding-top:calc(68px + 1.6rem)}
+  html.com-barra-cat .capa{padding-top:calc(68px + 42px + 1.6rem)}
+  .capa-grade{gap:0}
+  .capa-texto{display:contents}
+  .capa-texto .rotulo{order:1}
+  .capa-texto h1{order:2;margin:1rem 0 1.6rem}
+  .capa-foto{order:3;margin:14px 0 2rem}
+  .capa-foto .midia{aspect-ratio:1/1}
+  .capa-foto img{width:100%;height:100%;object-fit:cover;object-position:55% 0}
+  .capa-texto .frase{order:4}
+  .capa-texto .sub{order:5}
+  .capa-texto .acoes{order:6}
+  .capa-texto .capa-numeros{order:7}
+}
 @media (max-width:600px){
   .cat-grade{--vis:1.5;margin-right:calc(-1 * clamp(1.25rem,4vw,2.5rem));padding-right:clamp(1.25rem,4vw,2.5rem);scroll-padding-left:0}
 }
@@ -746,7 +764,7 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
 <!-- ============ CAPA ============ -->
 <section class="capa" id="inicio" aria-labelledby="titulo-capa">
   <div class="wrap capa-grade">
-    <div class="revela">
+    <div class="capa-texto revela">
       <p class="rotulo" data-t="capaRotulo">Portfólio · UGC Creator</p>
       <h1 id="titulo-capa">Rodrigo<br>Press</h1>
       <p class="frase" data-t="capaFrase">Direto ao ponto que vende.</p>

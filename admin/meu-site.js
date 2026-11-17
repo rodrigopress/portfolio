@@ -3,9 +3,9 @@
    ============================================================ */
 
 /* As quatro categorias do portfólio (iguais às do site) */
-const NICHOS = [["moda", "Moda masculina"], ["negocios", "Finanças, apps e negócios"], ["fitness", "Saúde e fitness"], ["lifestyle", "Lifestyle e gastronomia"]];
-const nomeNicho = (n) => (NICHOS.find(x => x[0] === n) || [n, n || "Sem nicho"])[1];
-const VIDEOS_POR_NICHO_NO_SITE = 4;
+const NICHOS = [["moda", "Moda"], ["financas", "Finanças, apps e tecnologia"], ["fitness", "Fitness"], ["casal", "Casal"], ["gastronomia", "Gastronomia e casa"]];
+const APELIDOS_NICHO = { negocios: "financas", lifestyle: "gastronomia" }; /* nomes antigos */
+const nomeNicho = (n) => (NICHOS.find(x => x[0] === (APELIDOS_NICHO[n] || n)) || [n, n || "Sem nicho"])[1];
 
 /* ---------------- PORTFÓLIO ---------------- */
 Painel.abas.portfolio = {
@@ -69,7 +69,7 @@ Painel.abas.portfolio = {
       <div class="cartao">
         <div class="cartao-cabeca">
           <h2>Meus vídeos</h2>
-          <span class="dica">Arraste pela alça pra mudar a ordem. O site mostra os ${VIDEOS_POR_NICHO_NO_SITE} primeiros visíveis de cada nicho.</span>
+          <span class="dica">Arraste pela alça pra mudar a ordem. Os visíveis entram no fim da linha do nicho, depois dos vídeos que já estão no site.</span>
           <div class="acoes"><button class="btn btn--principal" type="button" data-novo-video>${ICONES.mais}Adicionar vídeo</button></div>
         </div>
         <div class="rola">${tabelaVideos(videos)}</div>

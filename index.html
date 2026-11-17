@@ -723,6 +723,114 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
   .revela{opacity:1;transform:none}
   .faixa-trilho{flex-wrap:wrap;width:auto}
 }
+/* ============================================================
+   CELULAR COMPACTO (até 700px). No computador nada disso vale.
+   ============================================================ */
+.setas-linha{display:none}
+@media (max-width:700px){
+  /* textos */
+  body{font-size:15px}
+  .capa h1{font-size:2.25rem}
+  .cat-titulo,.destaques-titulo,.sobre-titulo,.contato-escuro .contato-titulo,#servicos .cat-titulo,.processo-escuro .cat-titulo,#fotos .cat-titulo,#numeros .depo-cabeca .cat-titulo{font-size:1.75rem}
+
+  /* espaço das seções: ~40px em cima e embaixo */
+  .secao,.destaques-escuro,.processo-escuro,.contato-escuro{padding:40px 0}
+  .sobre{padding-bottom:40px}
+  .faixa-metodo{padding:40px 0}
+  .capa .faixa{margin-top:2rem}
+  html.com-barra-cat .capa{padding-top:calc(68px + 1.6rem)}
+  html.com-barra-cat{scroll-padding-top:120px}
+
+  /* espaços internos */
+  .cat-etiqueta{margin-bottom:.9rem}
+  .cat-abertura{margin-bottom:1.6rem}
+  .cat-apoio{margin:.8rem 0 1.2rem}
+  .sobre-grade,.sobre .sobre-grade{gap:1.6rem}
+  .sobre-etiqueta{margin-bottom:.8rem}
+  .sobre-titulo{margin-bottom:.8rem}
+  .sobre .sobre-texto p{line-height:1.7;margin-bottom:.7rem}
+  .contato-escuro .contato-cabeca{margin-bottom:1.4rem}
+  .contato-escuro .contato-grade{gap:1.6rem}
+  .contato-escuro .contato-intro .contato-titulo{margin-bottom:16px}
+  .contato-escuro .contato-intro .contato-frase{margin-bottom:18px}
+
+  /* setas do celular: ao lado do título, nunca por cima dos vídeos */
+  .cat-seta{display:none !important}
+  .setas-linha{display:flex;gap:8px;flex-shrink:0}
+  .seta-linha{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid #d6d6ce;border-radius:50%;background:transparent;color:#22272a;font-family:var(--corpo);font-size:1.35rem;font-weight:300;line-height:1;cursor:pointer;transition:opacity .25s}
+  .seta-linha span{margin-top:-3px}
+  .setas-linha--escura .seta-linha{border-color:#4b524c;color:#ecebe6}
+  .seta-linha.apagada{opacity:.3;cursor:default}
+  .seta-linha:focus-visible{outline:2px solid #7a8450;outline-offset:2px}
+
+  /* linhas que deslizam: vão até a borda da tela, pra mostrar que tem mais */
+  .cat-grade,.destaques,.serv-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;margin-right:calc(-1 * clamp(1.25rem,4vw,2.5rem));padding-right:clamp(1.25rem,4vw,2.5rem);scroll-padding-left:0}
+  .destaques::-webkit-scrollbar,.serv-cards::-webkit-scrollbar{display:none}
+  .cat-grade>li:last-child,.destaques>.destaque:last-child,.serv-cards>li:last-child{scroll-snap-align:end}
+
+  /* 1. CATEGORIAS: vídeos de ~105px (9:16), ~3,3 por tela */
+  .categoria{padding-top:1rem}
+  .categoria+.categoria{margin-top:1.6rem}
+  .cat-topo{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center;margin-bottom:.9rem}
+  .cat-topo h3{grid-column:1;font-size:1.35rem}
+  .cat-topo .cat-desc{grid-column:1;margin-top:.25rem;font-size:.82rem;line-height:1.45}
+  .cat-topo .setas-linha{grid-column:2;grid-row:1 / span 2}
+  .cat-grade{--gap:8px;gap:8px}
+  .cat-grade>li{flex:0 0 105px}
+  .cat-grade .vplay .circulo{width:34px;height:34px}
+  .cat-grade .vplay .circulo::before{margin-left:3px;border-left-width:9px;border-top-width:6px;border-bottom-width:6px}
+  .cat-grade .vplayer{border-radius:8px}
+  .cat-grade .vplay{border-radius:8px}
+  .vrodape--marca{padding:2rem .5rem .5rem}
+  .vrodape--marca span{font-size:8.5px;letter-spacing:.12em}
+
+  /* 2. DESTAQUES: linha que desliza, ~180px por vídeo (2 por tela) */
+  .destaques-cabeca{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:end;margin-bottom:1.4rem}
+  .destaques-cabeca>*{grid-column:1}
+  .destaques-cabeca .setas-linha{grid-column:2;grid-row:2}
+  .destaques-apoio{margin-top:.6rem;font-size:.9rem}
+  .destaques{max-width:none;margin-left:0;gap:12px}
+  .destaques>.destaque{flex:0 0 180px;scroll-snap-align:start}
+  .destaques-escuro .destaque .vplayer{margin-bottom:.8rem;border-radius:10px}
+  .destaques-escuro .destaque .vplayer .vplay{border-radius:10px}
+  .destaques-escuro .vpilula{top:.5rem;left:.5rem;padding:.25rem .5rem;font-size:8px;letter-spacing:.12em}
+  .destaque .vplay .circulo{width:42px;height:42px}
+  .dest-estrelas{font-size:.72rem}
+  .dest-avaliacao{margin:.35rem 0 .55rem;font-size:.78rem;line-height:1.5}
+  .dest-selo{gap:.35rem;padding-top:.55rem;font-size:8px;letter-spacing:.1em;line-height:1.4}
+
+  /* 7. FOTOS: 3 colunas menores */
+  .fotos-grade{grid-template-columns:repeat(3,1fr);gap:6px;margin-top:1.4rem}
+  .fotos-grade li:last-child{grid-column:auto}
+  .foto{border-radius:6px}
+
+  /* 8. SERVIÇOS: linha que desliza, ~1,2 card por tela */
+  #servicos .depo-linha{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:center}
+  #servicos .depo-linha .cat-titulo{grid-column:1;grid-row:1}
+  #servicos .depo-linha .setas-linha{grid-column:2;grid-row:1}
+  #servicos .depo-canto{grid-column:1 / -1;margin-top:.6rem}
+  .serv-cards{gap:12px;margin-top:1.4rem}
+  .serv-cards>li{flex:0 0 82%;scroll-snap-align:start}
+  .serv-card{padding:20px}
+  .serv-card h3{font-size:1.25rem;margin-bottom:.6rem}
+  .serv-card p{font-size:.88rem;margin-bottom:1rem}
+  .serv-tags{margin-bottom:1.2rem}
+  .serv-pacote{margin-top:12px;padding:1.3rem;gap:1rem}
+  .serv-pacote h3{font-size:1.2rem}
+
+  /* 10. DEPOIMENTOS e PROCESSO */
+  .depo-faixa{margin-top:1.4rem}
+  .depo-card{width:250px;padding:18px;margin-right:12px}
+  .depo-card blockquote{margin:.7rem 0 1rem;font-size:.92rem;line-height:1.5}
+  #numeros .depo-selo{margin-top:1rem}
+  .proc-trilho{margin-top:1.6rem}
+  .proc-etapa{grid-template-columns:40px 1fr;column-gap:1rem;padding-bottom:1.4rem}
+  .proc-num{width:40px;height:40px;font-size:.9rem}
+  .proc-etapa:not(:last-child)::after{left:20px;top:40px}
+  .proc-nome{margin:.6rem 0 .3rem}
+  .proc-frase{font-size:1.1rem;margin-bottom:.4rem}
+  .proc-desc{font-size:.86rem;line-height:1.55}
+}
 </style>
 </head>
 <body>
@@ -834,6 +942,7 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
       <p class="cat-etiqueta" data-t="destEtiqueta">Destaques</p>
       <h2 id="titulo-destaques" class="destaques-titulo"><span data-t="destTitulo1">O que as marcas disseram</span> <em data-t="destTitulo2">depois da entrega.</em></h2>
       <p class="destaques-apoio" data-t="destApoio">Três campanhas, três nichos, avaliação 5 estrelas em todas.</p>
+      <div class="setas-linha setas-linha--escura" data-trilho="lista-destaques"></div>
     </div>
     <div class="destaques" id="lista-destaques"><!-- preenchido pelo script (array destaques) --></div>
   </div>
@@ -930,6 +1039,7 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
       <div class="depo-linha">
         <h2 id="titulo-servicos" class="cat-titulo"><span data-t="servTitulo1">Como eu</span> <em data-t="servTitulo2">te ajudo.</em></h2>
         <p class="depo-canto" data-t="servCanto">Escolha o formato ideal para o momento da sua marca.</p>
+        <div class="setas-linha" data-trilho="lista-servicos"></div>
       </div>
     </div>
     <ul class="serv-cards" id="lista-servicos"></ul>
@@ -1057,7 +1167,7 @@ const textos = {
     fechar: "Fechar", kitRotulo: "Mídia kit", kitTitulo: "Quer meu mídia kit completo?",
     kitTexto: "Deixa seu nome e e-mail que eu te envio.",
     catEtiqueta: "Categorias", catTitulo: "Estratégia que se adapta a", catTituloDestaque: "cada nicho.",
-    catApoio: "Escolha o seu nicho e veja como eu transformo o diferencial do produto em decisão de compra.", catLinksAria: "Categorias", catVideos: "vídeos", catAnterior: "Vídeos anteriores", catProximo: "Próximos vídeos",
+    catApoio: "Escolha o seu nicho e veja como eu transformo o diferencial do produto em decisão de compra.", catLinksAria: "Categorias", catVideos: "vídeos", catAnterior: "Vídeos anteriores", catProximo: "Próximos vídeos", setaAnt: "Anterior", setaProx: "Próximo",
     catNum: "Conteúdo UGC", videoEmBreve: "Vídeo em breve", reproduzir: "Reproduzir vídeo", pausar: "Pausar vídeo",
     contEtiqueta: "Contato", contTitulo1: "Vamos criar", contTitulo2: "juntos?", contApoio: "",
     contAgenda: "", contWhats: "Chamar no WhatsApp", lblMarca: "Marca / empresa", rodapeCargo: "UGC Creator",
@@ -1113,7 +1223,7 @@ const textos = {
     fechar: "Close", kitRotulo: "Media kit", kitTitulo: "Want my full media kit?",
     kitTexto: "Leave your name and email and I'll send it to you.",
     catEtiqueta: "Categories", catTitulo: "Strategy that adapts to", catTituloDestaque: "every niche.",
-    catApoio: "Choose your niche and see how I turn a product’s edge into a buying decision.", catLinksAria: "Categories", catVideos: "videos", catAnterior: "Previous videos", catProximo: "Next videos",
+    catApoio: "Choose your niche and see how I turn a product’s edge into a buying decision.", catLinksAria: "Categories", catVideos: "videos", catAnterior: "Previous videos", catProximo: "Next videos", setaAnt: "Previous", setaProx: "Next",
     catNum: "UGC content", videoEmBreve: "Video coming soon", reproduzir: "Play video", pausar: "Pause video",
     contEtiqueta: "Contact", contTitulo1: "Shall we create", contTitulo2: "together?", contApoio: "",
     contAgenda: "", contWhats: "Message me on WhatsApp", lblMarca: "Brand / company", rodapeCargo: "UGC Creator",
@@ -1347,6 +1457,7 @@ function renderiza() {
   /* a lista vai duas vezes para o carrossel girar sem pulo */
   $("#lista-depoimentos").innerHTML = depoimentos.map(d => cardDepo(d, false)).join("") + depoimentos.map(d => cardDepo(d, true)).join("");
   ajustaInicioDepo();
+  if (typeof ligaSetasFixas === "function") ligaSetasFixas();
 }
 
 /* o carrossel começa com o 1º card na linha do texto da página,
@@ -1419,6 +1530,7 @@ function renderizaCategorias(classeRevela) {
         <div class="cat-topo">
           <h3 id="cat-${c.chave}-titulo">${esc(nome)}</h3>
           <p class="cat-desc">${esc(tr(c.descricao))}</p>
+          ${lista.length ? setasLinhaHTML() : ""}
         </div>
         ${lista.length ? `<div class="cat-carrossel">
           <button class="cat-seta cat-seta--ant" type="button" aria-label="${esc(T("catAnterior"))}: ${esc(nome)}" hidden><span aria-hidden="true">←</span></button>
@@ -1450,6 +1562,56 @@ function ligaCarrossel(car) {
   trilho.addEventListener("scroll", confere, { passive: true });
   window.addEventListener("resize", confere);
   confere();
+  const setas = car.closest(".categoria")?.querySelector(".setas-linha");
+  if (setas) ligaSetas(trilho, setas);
+}
+/* SETAS DO CELULAR: dois botões ao lado do título de cada linha que desliza (Categorias, Destaques, Serviços).
+   Cada toque anda o que cabe na tela. A seta fica apagada quando não há mais para onde ir. */
+function setasLinhaHTML() {
+  return `<div class="setas-linha" role="group"><button class="seta-linha seta-linha--ant" type="button" data-t-aria="setaAnt" aria-label="${esc(T("setaAnt"))}"><span aria-hidden="true">‹</span></button><button class="seta-linha seta-linha--prox" type="button" data-t-aria="setaProx" aria-label="${esc(T("setaProx"))}"><span aria-hidden="true">›</span></button></div>`;
+}
+function ligaSetas(trilho, caixa) {
+  if (!trilho || !caixa) return;
+  if (!caixa.querySelector(".seta-linha")) caixa.innerHTML = setasLinhaHTML().replace(/^<div[^>]*>|<\/div>$/g, "");
+  const ant = caixa.querySelector(".seta-linha--ant"), prox = caixa.querySelector(".seta-linha--prox");
+  const apaga = (b, sim) => { b.classList.toggle("apagada", sim); b.setAttribute("aria-disabled", sim ? "true" : "false"); };
+  /* o fim da linha desconta a folga da direita (a linha vai até a borda da tela) */
+  const fimDaLinha = () => Math.max(0, trilho.scrollWidth - trilho.clientWidth - (parseFloat(getComputedStyle(trilho).paddingRight) || 0));
+  const confere = () => {
+    const max = fimDaLinha();
+    apaga(ant, trilho.scrollLeft <= 4);
+    apaga(prox, max <= 4 || trilho.scrollLeft >= max - 4);
+  };
+  const anda = (lado) => {
+    /* calcula o destino exato: o primeiro item depois dos que cabem na tela (ou o fim da linha) */
+    const itens = [...trilho.children];
+    if (!itens.length) return;
+    const base = itens[0].offsetLeft;
+    const pos = itens.map(i => i.offsetLeft - base);
+    const passo = itens.length > 1 ? pos[1] - pos[0] : itens[0].offsetWidth;
+    const quantos = Math.max(1, Math.floor((trilho.clientWidth + 2) / passo));
+    let atual = pos.findIndex(p => p >= trilho.scrollLeft - 4);
+    if (atual < 0) atual = itens.length - 1;
+    const alvo = Math.min(Math.max(atual + lado * quantos, 0), itens.length - 1);
+    const destino = Math.min(pos[alvo], fimDaLinha());
+    trilho.scrollTo({ left: destino, behavior: semMovimento ? "auto" : "smooth" });
+    /* se o navegador não fizer a rolagem suave, garante que a linha chegue no lugar */
+    clearTimeout(trilho._garante);
+    trilho._garante = setTimeout(() => { if (Math.abs(trilho.scrollLeft - destino) > 6) trilho.scrollLeft = destino; confere(); }, 700);
+  };
+  if (!caixa.dataset.ligada) {
+    caixa.dataset.ligada = "1";
+    ant.addEventListener("click", () => { if (!ant.classList.contains("apagada")) anda(-1); });
+    prox.addEventListener("click", () => { if (!prox.classList.contains("apagada")) anda(1); });
+    trilho.addEventListener("scroll", confere, { passive: true });
+    window.addEventListener("resize", confere);
+    (window.setasConfere = window.setasConfere || new Set()).add(confere);
+  }
+  confere();
+}
+function ligaSetasFixas() {
+  document.querySelectorAll(".setas-linha[data-trilho]").forEach(caixa => ligaSetas(document.getElementById(caixa.dataset.trilho), caixa));
+  requestAnimationFrame(() => (window.setasConfere || []).forEach(f => f()));
 }
 /* o GitHub Pages esconde arquivos que começam com "_", então essas capas ganham um x na frente */
 function arquivoCapa(id) { return "capas/" + (id.startsWith("_") ? "x" + id : id) + ".jpg"; }
@@ -1651,7 +1813,13 @@ function ligaVideo(video) {
   let pedido = false;
   const atualiza = () => {
     pedido = false;
-    barra.classList.add("visivel");
+    /* no celular a barra só aparece quando a pessoa chega nas Categorias; no computador fica sempre */
+    let mostra = true;
+    if (window.matchMedia("(max-width:700px)").matches) {
+      const sec = $("#trabalhos");
+      mostra = !!sec && sec.getBoundingClientRect().top <= $(".topo").offsetHeight + 60;
+    }
+    barra.classList.toggle("visivel", mostra);
     const limite = alturaBarras() + 40;
     let atual = null;
     document.querySelectorAll("#categorias .categoria").forEach(c => { if (c.getBoundingClientRect().top <= limite) atual = c.id.replace("cat-", ""); });

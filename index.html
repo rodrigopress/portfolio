@@ -543,7 +543,24 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
 .cat-topo{display:flex;align-items:baseline;justify-content:space-between;gap:2rem;margin-bottom:clamp(1.6rem,3vw,2.4rem)}
 .cat-topo h3{font-size:clamp(1.9rem,4vw,3rem);color:#22272a}
 .cat-desc{margin:0;max-width:24rem;text-align:right;font-size:.9rem;line-height:1.6;color:#4b524c}
-.cat-grade{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.8rem,2vw,1.4rem);list-style:none;padding:0;margin:0}
+.cat-qtd{margin-left:.35em;font-family:var(--corpo);font-size:.72rem;font-weight:400;letter-spacing:.14em;vertical-align:super;color:#7a8450}
+/* cada categoria é uma linha só, que desliza pro lado */
+.cat-carrossel{position:relative}
+.cat-grade{--vis:4.5;--gap:clamp(.8rem,1.6vw,1.2rem);display:flex;gap:var(--gap);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:0;scrollbar-width:none;-webkit-overflow-scrolling:touch;list-style:none;padding:0;margin:0}
+.cat-grade::-webkit-scrollbar{display:none}
+.cat-grade>li{flex:0 0 calc((100% - (var(--vis) - .5) * var(--gap)) / var(--vis));scroll-snap-align:start}
+.cat-seta{position:absolute;top:50%;z-index:5;display:grid;place-items:center;width:46px;height:46px;margin-top:-23px;padding:0;border:1px solid #d6d6ce;border-radius:50%;background:rgba(236,235,230,.94);color:#22272a;font-family:var(--corpo);font-size:1.05rem;cursor:pointer;box-shadow:0 4px 16px rgba(34,39,42,.12);transition:background .3s,color .3s,border-color .3s}
+.cat-seta:hover{background:#7a8450;border-color:#7a8450;color:#ecebe6}
+.cat-seta:focus-visible{outline:2px solid #7a8450;outline-offset:2px}
+.cat-seta[hidden]{display:none}
+.cat-seta--ant{left:-23px}
+.cat-seta--prox{right:-23px}
+@media (max-width:1100px){.cat-grade{--vis:3.5}}
+@media (max-width:900px){.cat-seta--ant{left:4px}.cat-seta--prox{right:4px}}
+@media (max-width:600px){
+  .cat-grade{--vis:1.5;margin-right:calc(-1 * clamp(1.25rem,4vw,2.5rem));padding-right:clamp(1.25rem,4vw,2.5rem);scroll-padding-left:0}
+}
+@media (hover:none),(pointer:coarse){.cat-seta{display:none !important}}
 .vplayer{position:relative;aspect-ratio:9/16;border-radius:12px;overflow:hidden;background:#cdd0c2}
 .vplayer video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .vposter{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
@@ -654,7 +671,6 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
   .resultados{grid-template-columns:1fr}
 }
 @media (max-width:600px){
-  .cat-grade{grid-template-columns:repeat(2,1fr)}
   .vrodape{padding:3rem .8rem .8rem}
   .vrodape strong{font-size:.95rem}
   .marca-nome{font-size:.8rem;letter-spacing:.06em}
@@ -1011,7 +1027,7 @@ const textos = {
     fechar: "Fechar", kitRotulo: "Mídia kit", kitTitulo: "Quer meu mídia kit completo?",
     kitTexto: "Deixa seu nome e e-mail que eu te envio.",
     catEtiqueta: "Categorias", catTitulo: "Um olhar masculino para", catTituloDestaque: "cada nicho.",
-    catApoio: "Escolha o seu nicho e veja como eu transformo o diferencial do produto em decisão de compra.", catLinksAria: "Categorias",
+    catApoio: "Escolha o seu nicho e veja como eu transformo o diferencial do produto em decisão de compra.", catLinksAria: "Categorias", catVideos: "vídeos", catAnterior: "Vídeos anteriores", catProximo: "Próximos vídeos",
     catNum: "Conteúdo UGC", videoEmBreve: "Vídeo em breve", reproduzir: "Reproduzir vídeo", pausar: "Pausar vídeo",
     contEtiqueta: "Contato", contTitulo1: "Vamos criar", contTitulo2: "juntos?", contApoio: "",
     contAgenda: "", contWhats: "Chamar no WhatsApp", lblMarca: "Marca / empresa", rodapeCargo: "UGC creator",
@@ -1067,7 +1083,7 @@ const textos = {
     fechar: "Close", kitRotulo: "Media kit", kitTitulo: "Want my full media kit?",
     kitTexto: "Leave your name and email and I'll send it to you.",
     catEtiqueta: "Categories", catTitulo: "A male perspective for", catTituloDestaque: "every niche.",
-    catApoio: "Choose your niche and see how I turn what makes your product different into a purchase decision.", catLinksAria: "Categories",
+    catApoio: "Choose your niche and see how I turn a product’s edge into a buying decision.", catLinksAria: "Categories", catVideos: "videos", catAnterior: "Previous videos", catProximo: "Next videos",
     catNum: "UGC content", videoEmBreve: "Video coming soon", reproduzir: "Play video", pausar: "Pause video",
     contEtiqueta: "Contact", contTitulo1: "Shall we create", contTitulo2: "together?", contApoio: "",
     contAgenda: "", contWhats: "Message me on WhatsApp", lblMarca: "Brand / company", rodapeCargo: "UGC creator",
@@ -1102,22 +1118,62 @@ const destaques = [
 
 /* CATEGORIAS E VÍDEOS (seção 03)
    A ordem aqui é a ordem da página. Cada vídeo tem o nome da marca e o link do YouTube:
-   { marca: "Nome da marca", youtube: "https://youtube.com/shorts/..." }
-   Se faltar vídeo numa categoria, aparece um quadro escrito "Vídeo em breve". */
+   { marca: "Nome da marca", youtube: "ID do vídeo" } (pode ser o ID ou o link inteiro do Shorts)
+   Cada categoria vira uma linha que desliza pro lado, com setas no computador. */
 /* BARRA FIXA DE CATEGORIAS: true liga, false desliga */
 const BARRA_CATEGORIAS = true;
 /* CAPAS PRÓPRIAS: suba a imagem na pasta capas com o nome capas/<ID do vídeo>.jpg e coloque o ID aqui. */
-const CAPAS_PROPRIAS = [];
-const VIDEOS_POR_CATEGORIA = 4; /* quantos vídeos aparecem em cada categoria */
+const CAPAS_PROPRIAS = ["3H1RhTFE5fk"];
 const categorias = [
-  { chave: "moda", nome: { pt: "Moda masculina", en: "Menswear" },
-    descricao: { pt: "Estilo que veste bem e vende melhor.", en: "Style that looks sharp and sells better." }, videos: [] },
-  { chave: "negocios", nome: { pt: "Finanças, apps e negócios", en: "Finance, Apps & Business" },
-    descricao: { pt: "Produtos complexos explicados com clareza e confiança.", en: "Complex products explained with clarity and trust." }, videos: [] },
-  { chave: "fitness", nome: { pt: "Saúde e fitness", en: "Health & Fitness" },
-    descricao: { pt: "Treino, suplementação e disciplina de quem vive a rotina.", en: "Training, supplements and the discipline of someone who lives it." }, videos: [] },
-  { chave: "lifestyle", nome: { pt: "Lifestyle e gastronomia", en: "Lifestyle & Food" },
-    descricao: { pt: "Experiências, viagens e sabores com a sua marca em cena.", en: "Experiences, travel and flavors with your brand on scene." }, videos: [] }
+  { chave: "moda", nome: { pt: "Moda", en: "Fashion" },
+    descricao: { pt: "Estilo que veste bem e vende melhor.", en: "Style that looks sharp and sells better." },
+    videos: [
+      { marca: "Franca Griffe", youtube: "qEZ24R7yJ3k" },
+      { marca: "Haag", youtube: "EGRW6u2q0OU" },
+      { marca: "Jota Pe", youtube: "3H1RhTFE5fk" },
+      { marca: "KJ Black", youtube: "NNNulCD0-X4" },
+      { marca: "KJ Black", youtube: "G0kLbQXEZ3U" },
+      { marca: "KJ Black", youtube: "_rLj7RR3LbE" },
+      { marca: "KJ Black", youtube: "rPL_wIPEjDY" },
+      { marca: "KJ Black", youtube: "RjUCRKmEGaQ" },
+      { marca: "KJ Black", youtube: "bv-sISyYksA" }
+    ] },
+  { chave: "financas", nome: { pt: "Finanças, apps e tecnologia", en: "Finance, Apps & Tech" },
+    descricao: { pt: "Produtos complexos explicados com clareza e confiança.", en: "Complex products explained with clarity and trust." },
+    videos: [
+      { marca: "TB Financial", youtube: "LrtH_4D-79M" },
+      { marca: "Spotter", youtube: "ejOLQEhgWn8" },
+      { marca: "TB Financial", youtube: "Oj9AT6aafsc" },
+      { marca: "Quitou BR", youtube: "dsmPoEfcfVQ" },
+      { marca: "TB Financial", youtube: "a8i2I5hkXM4" },
+      { marca: "TB Financial", youtube: "b6aZgx0M5ls" }
+    ] },
+  { chave: "fitness", nome: { pt: "Fitness", en: "Fitness" },
+    descricao: { pt: "Treino, suplementação e disciplina de quem vive a rotina.", en: "Training, supplements and the discipline of someone who lives it." },
+    videos: [
+      { marca: "FormaFit", youtube: "teLMT9kBJRI" },
+      { marca: "Ca.Nuts", youtube: "AQgiTaw6Iw0" },
+      { marca: "Ráwve", youtube: "24rXfOEKTPg" },
+      { marca: "Sincrofit", youtube: "-zkLBskN8s8" },
+      { marca: "Ráwve", youtube: "idP5NInrmto" }
+    ] },
+  { chave: "casal", nome: { pt: "Casal", en: "Couple" },
+    descricao: { pt: "A rotina a dois, com humor e naturalidade.", en: "Life as a couple, with humor and authenticity." },
+    videos: [
+      { marca: "KJ Black", youtube: "xgJw8dy12yc" },
+      { marca: "Estar Mais", youtube: "7duqbYRYxqI" },
+      { marca: "KJ Black", youtube: "A8qYzuPkiaA" },
+      { marca: "KJ Black", youtube: "5I9bFcy1sM8" },
+      { marca: "KJ Black", youtube: "RsTU-2trN4Q" }
+    ] },
+  { chave: "gastronomia", nome: { pt: "Gastronomia e casa", en: "Food & Home" },
+    descricao: { pt: "Sabores que dão vontade de provar e praticidade pra rotina da casa.", en: "Flavors worth tasting and practical solutions for everyday home life." },
+    videos: [
+      { marca: "Luigi Limoncello", youtube: "e3k_Q-C7ZZs" },
+      { marca: "Galiotto", youtube: "QD1nRrBNzvU" },
+      { marca: "Luigi Limoncello", youtube: "WlhQC0P23DE" },
+      { marca: "Azulim", youtube: "1DG0L96nf5U" }
+    ] }
 ];
 
 /* Serviços (quatro). destaque: true mostra o selo "Mais pedido". O botão "Quero esse" abre o WhatsApp citando o serviço. */
@@ -1320,7 +1376,7 @@ function renderizaCategorias(classeRevela) {
     <li><button class="foto" type="button" data-i="${i}" aria-label="${esc(T("fotoAmpliar"))}: ${esc(tr(f.nicho))} (${i + 1}/${fotos.length})"><img src="fotos/${esc(f.arquivo)}" alt="${esc(tr(f.nicho))}" width="800" height="1000" loading="lazy" decoding="async"><span class="foto-nicho">${esc(tr(f.nicho))}</span></button></li>`).join("");
   $("#categorias").innerHTML = categorias.map((c, ci) => {
     const nome = tr(c.nome);
-    const lista = c.videos.slice(0, VIDEOS_POR_CATEGORIA);
+    const lista = c.videos.filter(Boolean);
     /* sem cards vazios: só aparecem os vídeos que já têm link */
     const cards = lista.map((v, i) => {
       const num = String(i + 1).padStart(2, "0");
@@ -1343,14 +1399,39 @@ function renderizaCategorias(classeRevela) {
     return `
       <article class="categoria${lista.length ? "" : " categoria--sem-videos"} ${classeRevela}" id="cat-${c.chave}" aria-labelledby="cat-${c.chave}-titulo">
         <div class="cat-topo">
-          <h3 id="cat-${c.chave}-titulo">${esc(nome)}</h3>
+          <h3 id="cat-${c.chave}-titulo">${esc(nome)}${lista.length ? ` <sup class="cat-qtd" aria-label="${lista.length} ${esc(T("catVideos"))}">${String(lista.length).padStart(2, "0")}</sup>` : ""}</h3>
           <p class="cat-desc">${esc(tr(c.descricao))}</p>
         </div>
-        ${lista.length ? `<ul class="cat-grade">${cards}</ul>` : ""}
+        ${lista.length ? `<div class="cat-carrossel">
+          <button class="cat-seta cat-seta--ant" type="button" aria-label="${esc(T("catAnterior"))}: ${esc(nome)}" hidden><span aria-hidden="true">←</span></button>
+          <ul class="cat-grade">${cards}</ul>
+          <button class="cat-seta cat-seta--prox" type="button" aria-label="${esc(T("catProximo"))}: ${esc(nome)}" hidden><span aria-hidden="true">→</span></button>
+        </div>` : ""}
       </article>`;
   }).join("");
   document.querySelectorAll("#categorias video").forEach(ligaVideo);
   document.querySelectorAll("#categorias .vplayer--yt").forEach(ligaYoutube);
+  document.querySelectorAll("#categorias .cat-carrossel").forEach(ligaCarrossel);
+}
+/* Linha deslizante: as setas andam uma "página" de vídeos e somem nas pontas */
+function ligaCarrossel(car) {
+  const trilho = car.querySelector(".cat-grade"), ant = car.querySelector(".cat-seta--ant"), prox = car.querySelector(".cat-seta--prox");
+  const confere = () => {
+    const max = trilho.scrollWidth - trilho.clientWidth;
+    ant.hidden = trilho.scrollLeft <= 4;
+    prox.hidden = max <= 4 || trilho.scrollLeft >= max - 4;
+  };
+  const anda = (lado) => {
+    const card = trilho.querySelector("li");
+    const passo = card ? card.getBoundingClientRect().width + parseFloat(getComputedStyle(trilho).columnGap || 0) : trilho.clientWidth;
+    const quantos = Math.max(1, Math.floor(trilho.clientWidth / passo));
+    trilho.scrollBy({ left: lado * quantos * passo, behavior: semMovimento ? "auto" : "smooth" });
+  };
+  ant.addEventListener("click", () => anda(-1));
+  prox.addEventListener("click", () => anda(1));
+  trilho.addEventListener("scroll", confere, { passive: true });
+  window.addEventListener("resize", confere);
+  confere();
 }
 function idDoYoutube(link) {
   const m = String(link).match(/(?:shorts\/|embed\/|youtu\.be\/|[?&]v=)([\w-]{11})/);

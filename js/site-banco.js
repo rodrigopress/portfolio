@@ -1,7 +1,7 @@
 /* ============================================================
    LIGA O PORTFÓLIO AO PAINEL
-   1. Vídeos: o site lê a tabela "videos" (só os visíveis) e monta as categorias.
-      Mudou no painel, mudou no site, sem publicar de novo.
+   1. Vídeos: o site lê a tabela "videos" (só os visíveis) e soma no fim da linha
+      da categoria certa. Os vídeos escritos no site continuam aparecendo.
    2. Formulário: cada mensagem entra na tabela "marcas" como Lead
       (e continua indo pro seu e-mail, como antes).
    3. Visitas: grava uma linha na tabela "visitas" por visita,
@@ -20,11 +20,14 @@
         .eq("visivel", true)
         .order("ordem", { ascending: true });
       if (error || !Array.isArray(data)) return;
+      if (!data.length) return; /* nada no painel: ficam os vídeos escritos no site */
       const ehYoutube = (l) => /youtu\.?be/i.test(l);
-      categorias.forEach(c => { c.videos = []; });
+      /* nomes antigos de nicho continuam valendo */
+      const apelidos = { negocios: "financas", lifestyle: "gastronomia" };
+      const jaTem = (cat, link) => cat.videos.some(x => x && (x.youtube || x.arquivo) && (idDoYoutube(x.youtube || x.arquivo) === idDoYoutube(link)));
       data.forEach(v => {
-        const cat = categorias.find(c => c.chave === v.nicho);
-        if (!cat || !v.link) return;
+        const cat = categorias.find(c => c.chave === (apelidos[v.nicho] || v.nicho));
+        if (!cat || !v.link || jaTem(cat, v.link)) return;
         cat.videos.push({
           marca: v.marca || v.titulo || "",
           destaque: v.destaque || "",

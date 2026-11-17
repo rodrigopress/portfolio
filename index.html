@@ -1133,9 +1133,8 @@ const destaques = [
    Cada categoria vira uma linha que desliza pro lado, com setas no computador. */
 /* BARRA FIXA DE CATEGORIAS: true liga, false desliga */
 const BARRA_CATEGORIAS = true;
-/* CAPAS: nas Categorias, toda capa é um quadro do próprio vídeo, salvo em capas/<ID do vídeo>.jpg (640x1138).
-   Se a imagem faltar, entra a capa do YouTube. A lista abaixo vale só para os Destaques. */
-const CAPAS_PROPRIAS = ["3H1RhTFE5fk", "Oj9AT6aafsc", "b6aZgx0M5ls"];
+/* CAPAS: nos Destaques e nas Categorias, toda capa é um quadro do próprio vídeo, salvo em capas/<ID do vídeo>.jpg.
+   Se a imagem faltar, entra a capa do YouTube. */
 const categorias = [
   { chave: "moda", nome: { pt: "Moda", en: "Fashion" },
     descricao: { pt: "Estilo que veste bem e vende melhor.", en: "Style that looks sharp and sells better." },
@@ -1297,7 +1296,7 @@ function renderiza() {
     return `
     <article class="destaque destaque--player ${revela}">
       <div class="midia midia--9x16 vplayer vplayer--yt" data-yt="${esc(yt)}">
-        <img class="vposter" src="${CAPAS_PROPRIAS.includes(yt) ? `capas/${esc(yt)}.jpg` : `https://i.ytimg.com/vi/${esc(yt)}/oardefault.jpg`}" alt="" loading="lazy" decoding="async" width="1080" height="1920">
+        <img class="vposter" src="${esc(arquivoCapa(yt))}?v=5" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(yt)}/oardefault.jpg'" alt="" loading="lazy" decoding="async" width="1080" height="1920">
         <span class="vpilula">${esc(rotulo)}</span>
         <button class="vplay" type="button" data-rotulo="${esc(rotulo)}" aria-label="${esc(T("reproduzir"))}: ${esc(rotulo)}"><span class="circulo" aria-hidden="true"></span></button>
       </div>
@@ -1386,7 +1385,7 @@ function renderizaCategorias(classeRevela) {
       const yt = !v.arquivo && v.youtube ? idDoYoutube(v.youtube) : "";
       if (!v.arquivo && !yt) return `<li><div class="vplayer sem-video" data-aviso="${esc(T("videoEmBreve"))}"></div></li>`;
       const midia = yt
-        ? `<img class="vposter" src="${esc(arquivoCapa(yt))}?v=4" data-capa="${esc(arquivoCapa(yt))}" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(yt)}/oardefault.jpg'" alt="" loading="lazy" decoding="async" width="1080" height="1920">`
+        ? `<img class="vposter" src="${esc(arquivoCapa(yt))}?v=5" data-capa="${esc(arquivoCapa(yt))}" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${esc(yt)}/oardefault.jpg'" alt="" loading="lazy" decoding="async" width="1080" height="1920">`
         : `<video src="${esc(v.arquivo)}"${v.capa ? ` poster="${esc(v.capa)}"` : ""} preload="metadata" playsinline></video>`;
       return `
         <li>

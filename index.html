@@ -549,7 +549,6 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
 .cat-topo{display:flex;align-items:baseline;justify-content:space-between;gap:2rem;margin-bottom:clamp(1.6rem,3vw,2.4rem)}
 .cat-topo h3{font-size:clamp(1.9rem,4vw,3rem);color:#22272a}
 .cat-desc{margin:0;max-width:24rem;text-align:right;font-size:.9rem;line-height:1.6;color:#4b524c}
-.cat-qtd{margin-left:.35em;font-family:var(--corpo);font-size:.72rem;font-weight:400;letter-spacing:.14em;vertical-align:super;color:#7a8450}
 /* cada categoria é uma linha só, que desliza pro lado */
 .cat-carrossel{position:relative}
 .cat-grade{--vis:4.5;--gap:clamp(.8rem,1.6vw,1.2rem);display:flex;gap:var(--gap);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:0;scrollbar-width:none;-webkit-overflow-scrolling:touch;list-style:none;padding:0;margin:0}
@@ -1129,7 +1128,7 @@ const destaques = [
 /* BARRA FIXA DE CATEGORIAS: true liga, false desliga */
 const BARRA_CATEGORIAS = true;
 /* CAPAS PRÓPRIAS: suba a imagem na pasta capas com o nome capas/<ID do vídeo>.jpg e coloque o ID aqui. */
-const CAPAS_PROPRIAS = ["3H1RhTFE5fk"];
+const CAPAS_PROPRIAS = ["3H1RhTFE5fk", "Oj9AT6aafsc", "b6aZgx0M5ls"];
 const categorias = [
   { chave: "moda", nome: { pt: "Moda", en: "Fashion" },
     descricao: { pt: "Estilo que veste bem e vende melhor.", en: "Style that looks sharp and sells better." },
@@ -1395,7 +1394,7 @@ function renderizaCategorias(classeRevela) {
     return `
       <article class="categoria${lista.length ? "" : " categoria--sem-videos"} ${classeRevela}" id="cat-${c.chave}" aria-labelledby="cat-${c.chave}-titulo">
         <div class="cat-topo">
-          <h3 id="cat-${c.chave}-titulo">${esc(nome)}${lista.length ? ` <sup class="cat-qtd" aria-label="${lista.length} ${esc(T("catVideos"))}">${String(lista.length).padStart(2, "0")}</sup>` : ""}</h3>
+          <h3 id="cat-${c.chave}-titulo">${esc(nome)}</h3>
           <p class="cat-desc">${esc(tr(c.descricao))}</p>
         </div>
         ${lista.length ? `<div class="cat-carrossel">

@@ -535,6 +535,9 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
 .cat-etiqueta::before{content:"";width:48px;height:1px;background:#7a8450;flex-shrink:0}
 .cat-titulo{font-size:clamp(2.2rem,5.4vw,4.2rem);line-height:1.1;color:#22272a;max-width:17ch}
 .cat-titulo em{font-style:normal;color:#7a8450}
+/* título das Categorias: quebra em duas linhas e a parte em verde não se separa */
+#titulo-trabalhos{max-width:21ch}
+#titulo-trabalhos em{white-space:nowrap}
 .cat-apoio{color:#4b524c;max-width:34rem;margin:1.4rem 0 2.6rem}
 .cat-links{display:flex;gap:2.2rem;overflow-x:auto;padding-bottom:.4rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .cat-links::-webkit-scrollbar{display:none}
@@ -823,7 +826,7 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
   <div class="wrap">
     <div class="cat-abertura revela">
       <p class="cat-etiqueta" data-t="catEtiqueta">Categorias</p>
-      <h2 id="titulo-trabalhos" class="cat-titulo"><span data-t="catTitulo">Um olhar masculino para</span> <em data-t="catTituloDestaque">cada nicho.</em></h2>
+      <h2 id="titulo-trabalhos" class="cat-titulo"><span data-t="catTitulo">Estratégia que se adapta a</span> <em data-t="catTituloDestaque">cada nicho.</em></h2>
       <p class="cat-apoio" data-t="catApoio">Escolha o seu nicho e veja como eu transformo o diferencial do produto em decisão de compra.</p>
       <nav class="cat-links" id="cat-links" aria-label="Categorias" data-t-aria="catLinksAria"><!-- preenchido pelo script (array categorias) --></nav>
     </div>
@@ -950,7 +953,7 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
         <div class="confirmacao contato-ok" id="ok-contato" hidden tabindex="-1">
           <p class="rotulo" data-t="okRotulo">Mensagem recebida</p>
           <h3><span data-t="okObrigada">Obrigado</span>, <span id="ok-nome"></span>!</h3>
-          <p id="ok-texto" data-t="okTexto">Vou ler com carinho e te respondo em até um dia útil. Se preferir, me chama no WhatsApp.</p>
+          <p id="ok-texto" data-t="okTexto">Recebi a sua mensagem e já te respondo. Se preferir, me chama no WhatsApp.</p>
         </div>
       </div>
     </div>
@@ -964,7 +967,7 @@ footer.rodape.rodape-claro small{font-size:.62rem;letter-spacing:.08em;text-tran
   <div class="wrap">
     <div class="rodape-marca">
       <a class="rodape-nome" href="#inicio">Rodrigo Press</a>
-      <span class="rodape-sub" data-t="rodapeCargo">UGC creator &amp; influencer</span>
+      <span class="rodape-sub" data-t="rodapeCargo">UGC Creator</span>
     </div>
     <div class="rodape-direita">
       <nav class="redes" aria-label="Redes">
@@ -1032,16 +1035,16 @@ const textos = {
     btnEmail: "E-mail", btnEscrever: "Escrever",
     lblNome: "Nome", lblEmail: "E-mail", lblMsg: "Mensagem", phNome: "Seu nome", phEmail: "Seu e-mail", phMarca: "Marca / empresa", phMsg: "O que você precisa? Formato, prazo, quantidade...", btnEnviar: "Enviar mensagem", btnEnviando: "Enviando...",
     okRotulo: "Mensagem recebida", okObrigada: "Obrigado",
-    okTexto: "Recebi a sua mensagem e respondo em breve. Se preferir, me chama no WhatsApp.",
+    okTexto: "Recebi a sua mensagem e já te respondo. Se preferir, me chama no WhatsApp.",
     fechar: "Fechar", kitRotulo: "Mídia kit", kitTitulo: "Quer meu mídia kit completo?",
     kitTexto: "Deixa seu nome e e-mail que eu te envio.",
-    catEtiqueta: "Categorias", catTitulo: "Um olhar masculino para", catTituloDestaque: "cada nicho.",
+    catEtiqueta: "Categorias", catTitulo: "Estratégia que se adapta a", catTituloDestaque: "cada nicho.",
     catApoio: "Escolha o seu nicho e veja como eu transformo o diferencial do produto em decisão de compra.", catLinksAria: "Categorias", catVideos: "vídeos", catAnterior: "Vídeos anteriores", catProximo: "Próximos vídeos",
     catNum: "Conteúdo UGC", videoEmBreve: "Vídeo em breve", reproduzir: "Reproduzir vídeo", pausar: "Pausar vídeo",
     contEtiqueta: "Contato", contTitulo1: "Vamos criar", contTitulo2: "juntos?", contApoio: "",
-    contAgenda: "", contWhats: "Chamar no WhatsApp", lblMarca: "Marca / empresa", rodapeCargo: "UGC creator",
+    contAgenda: "", contWhats: "Chamar no WhatsApp", lblMarca: "Marca / empresa", rodapeCargo: "UGC Creator",
     contErro: "Não consegui enviar agora. Abri o WhatsApp para você falar comigo direto.", okWhats: "Abri o WhatsApp com a sua mensagem pronta. É só tocar em enviar por lá.",
-    btnKit: "Quero receber", kitOkTitulo: "Prontinho!", kitOkTexto: "Em breve o mídia kit chega no seu e-mail."
+    btnKit: "Quero receber", kitOkTitulo: "Prontinho!"
   },
   en: {
     docTitulo: "Rodrigo Press | UGC Creator Portfolio",
@@ -1088,16 +1091,16 @@ const textos = {
     btnEmail: "Email", btnEscrever: "Write",
     lblNome: "Name", lblEmail: "Email", lblMsg: "Message", phNome: "Your name", phEmail: "Your email", phMarca: "Brand / company", phMsg: "What do you need? Format, deadline, quantity...", btnEnviar: "Send message", btnEnviando: "Sending...",
     okRotulo: "Message received", okObrigada: "Thank you",
-    okTexto: "I got your message and will reply soon. If you prefer, reach me on WhatsApp.",
+    okTexto: "I got your message and will get back to you shortly. If you prefer, reach me on WhatsApp.",
     fechar: "Close", kitRotulo: "Media kit", kitTitulo: "Want my full media kit?",
     kitTexto: "Leave your name and email and I'll send it to you.",
-    catEtiqueta: "Categories", catTitulo: "A male perspective for", catTituloDestaque: "every niche.",
+    catEtiqueta: "Categories", catTitulo: "Strategy that adapts to", catTituloDestaque: "every niche.",
     catApoio: "Choose your niche and see how I turn a product’s edge into a buying decision.", catLinksAria: "Categories", catVideos: "videos", catAnterior: "Previous videos", catProximo: "Next videos",
     catNum: "UGC content", videoEmBreve: "Video coming soon", reproduzir: "Play video", pausar: "Pause video",
     contEtiqueta: "Contact", contTitulo1: "Shall we create", contTitulo2: "together?", contApoio: "",
-    contAgenda: "", contWhats: "Message me on WhatsApp", lblMarca: "Brand / company", rodapeCargo: "UGC creator",
+    contAgenda: "", contWhats: "Message me on WhatsApp", lblMarca: "Brand / company", rodapeCargo: "UGC Creator",
     contErro: "I couldn't send it right now. I opened WhatsApp so you can reach me directly.", okWhats: "I opened WhatsApp with your message ready. Just tap send there.",
-    btnKit: "Send it to me", kitOkTitulo: "All set!", kitOkTexto: "Your media kit will arrive in your inbox soon."
+    btnKit: "Send it to me", kitOkTitulo: "All set!"
   }
 };
 
@@ -1138,7 +1141,7 @@ const categorias = [
     descricao: { pt: "Estilo que veste bem e vende melhor.", en: "Style that looks sharp and sells better." },
     videos: [
       { marca: "Franca Griffe", youtube: "qEZ24R7yJ3k" },
-      { marca: "Jota Pe", youtube: "3H1RhTFE5fk" },
+      { marca: "JotaPe", youtube: "3H1RhTFE5fk" },
       { marca: "KJ Black", youtube: "NNNulCD0-X4" },
       { marca: "KJ Black", youtube: "G0kLbQXEZ3U" },
       { marca: "KJ Black", youtube: "_rLj7RR3LbE" },
@@ -1167,7 +1170,7 @@ const categorias = [
       { marca: "Ráwve", youtube: "idP5NInrmto" }
     ] },
   { chave: "casal", nome: { pt: "Casal", en: "Couple" },
-    descricao: { pt: "A rotina a dois, com humor e naturalidade.", en: "Life as a couple, with humor and authenticity." },
+    descricao: { pt: "A rotina a dois, ao lado da Cris: humor, naturalidade e a sua marca em cena.", en: "Life as a couple, alongside Cris: humor, authenticity and your brand on scene." },
     videos: [
       { marca: "KJ Black", youtube: "xgJw8dy12yc" },
       { marca: "Estar Mais", youtube: "7duqbYRYxqI" },
@@ -1188,8 +1191,8 @@ const categorias = [
 /* Serviços (quatro). destaque: true mostra o selo "Mais pedido". O botão "Quero esse" abre o WhatsApp citando o serviço. */
 const servicos = [
   { titulo: { pt: "Vídeos UGC", en: "UGC videos" }, destaque: true,
-    descricao: { pt: "Vídeos naturais e bonitos, com roteiro e gancho forte, prontos para o orgânico e para anúncios.",
-                 en: "Natural, beautiful videos with a script and a strong hook, ready for organic posts and ads." },
+    descricao: { pt: "Vídeos objetivos e naturais, com roteiro e gancho forte, prontos para o orgânico e para anúncios.",
+                 en: "Straightforward, natural videos with a script and a strong hook, ready for organic posts and ads." },
     tags: { pt: ["Review", "Unboxing", "Uso real"], en: ["Review", "Unboxing", "Real use"] } },
   { titulo: { pt: "Criativos para anúncio", en: "Ad creatives" },
     descricao: { pt: "Versões do mesmo vídeo com ganchos diferentes, para testar no tráfego e descobrir o que mais vende.",
